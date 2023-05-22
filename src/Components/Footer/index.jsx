@@ -1,11 +1,12 @@
 import React from "react";
+import { Container, Typography } from "@mui/material";
 
 function Footer(props) {
 
   return(
-    <footer>
-      Footer Content Goes Here
-    </footer>
+    <Container component='footer' id='storeFooter' >
+      <Typography variant="subtitle1">Author: Kawika Miller || github.com/KMArtwork</Typography>
+    </Container>
   )
 
 }

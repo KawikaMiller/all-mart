@@ -7,8 +7,6 @@ function Products() {
   const categoryState = useSelector(storefrontState => storefrontState.categories);
   // const dispatch = useDispatch();
 
-  console.log(categoryState)
-
   return(
     categoryState.activeCategory.name ? 
     productState.allProducts.map(product => {

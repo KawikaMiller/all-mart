@@ -6,6 +6,8 @@ import Footer from "./Components/Footer";
 import Categories from "./Components/Categories";
 import Products from "./Components/Products";
 
+import { Container } from "@mui/material";
+
 const storeFront = createStore(storefrontReducer);
 
 function App() {
@@ -15,8 +17,10 @@ function App() {
   return (
     <Provider store={storeFront}>
       <Header />
+      <Container component='main' id='mainContainer'>
         <Categories categories={categoryState.categories}/>
-        <Products />
+        <Products />        
+      </Container>
       <Footer />      
     </Provider>
   );
