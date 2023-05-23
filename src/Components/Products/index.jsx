@@ -41,7 +41,7 @@ function Products() {
           </Card>   
 
         }
-        return
+        return null;
       })   
 
     : 
