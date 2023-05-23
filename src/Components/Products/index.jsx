@@ -1,5 +1,6 @@
 import React from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+// import { useDispatch } from "react-redux";
 import { Card, CardActions, CardContent, CardHeader, Typography, CardMedia, Container, Button } from "@mui/material";
 
 function Products() {
@@ -40,7 +41,7 @@ function Products() {
           </Card>   
 
         }
-
+        return
       })   
 
     : 
