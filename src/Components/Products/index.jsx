@@ -8,15 +8,17 @@ function Products() {
   const categoryState = useSelector(storefrontState => storefrontState.categories);
   // const dispatch = useDispatch();
 
+  // console.log(categoryState.activeCategory.name)
+
   return(
-    <Container id='productsContainer'>
+    <Container key='productsContainer' id='productsContainer'>
     {categoryState.activeCategory.name ?
 
       productState.allProducts.map(product => {
         
         if(product.category === categoryState.activeCategory.name){
 
-          return <Card sx={{width: 300, height: 300, margin: '1rem'}}>
+          return <Card key={`${product.name}_card`} sx={{width: 300, height: 300, margin: '1rem'}}>
             <CardHeader 
               title={product.name}
               subheader={product.price}
@@ -44,7 +46,7 @@ function Products() {
     : 
 
     productState.allProducts.map(product => {
-      return <Card sx={{width: 300, height: 300, margin: '1rem'}}>
+      return <Card key={`${product.name}_card`} sx={{width: 300, height: 300, margin: '1rem'}}>
         <CardHeader 
           title={product.name}
           subheader={product.price}

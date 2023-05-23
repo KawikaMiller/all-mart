@@ -37,7 +37,7 @@ function Categories (props) {
       <Typography>Categories:</Typography>
       <Container id='categoryContainer'>
         {props.categories.map(category => {
-          return <Paper onClick={handleClick} elevation={4} className="categorySelector">{category.display}</Paper>
+          return <Paper key={`paper_${category.name}`} onClick={handleClick} elevation={4} className="categorySelector">{category.display}</Paper>
         })}
         {/* <p>{categories.activeCategory.display}</p>      */}
       </Container>    

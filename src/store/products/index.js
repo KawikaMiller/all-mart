@@ -34,7 +34,6 @@ const initialProductsState = {
 const productsReducer = (state = initialProductsState, action) => {
   switch(action.type) {
     case 'FILTER_PRODUCTS':
-    case 'SET_ACTIVECATEGORY':
     default:
       return state;
   }
