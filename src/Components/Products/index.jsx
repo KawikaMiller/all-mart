@@ -1,15 +1,45 @@
 import React from "react";
 import { useSelector } from "react-redux";
-// import { useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { Card, CardActions, CardContent, CardHeader, Typography, CardMedia, Container, Button } from "@mui/material";
 
 function Products() {
 
   const productState = useSelector(storefrontState => storefrontState.products);
   const categoryState = useSelector(storefrontState => storefrontState.categories);
-  // const dispatch = useDispatch();
+  const cartState = useSelector(storefrontState => storefrontState.cart);
+  const dispatch = useDispatch();
 
-  // console.log(categoryState.activeCategory.name)
+  const handleAddToCart = (product) => {
+    
+    for (let i = 0; i < cartState.items.length; i++){
+      if (cartState.items[i].name === product.name){
+        console.log('found item')
+        dispatch({
+          type: 'MODIFY_QUANTITY',
+          payload: {
+            category: product.category,
+            name: product.name,
+            description: product.description,
+            price: product.price,
+            quantity: 1
+          }
+        })
+        return;
+      }
+    }
+
+    dispatch({
+      type: 'ADD_TO_CART',
+      payload: {
+        category: product.category,
+        name: product.name,
+        description: product.description,
+        price: product.price,
+        quantity: 1
+      }
+    })
+  }
 
   return(
     <Container key='productsContainer' id='productsContainer'>
@@ -34,9 +64,10 @@ function Products() {
               </Typography>
             </CardContent>
             <CardActions>
-              <Button variant="contained">
+              <Button variant="contained" onClick={() => handleAddToCart(product)}>
                 Add To Cart
               </Button>
+              
             </CardActions>
           </Card>   
 
@@ -62,7 +93,7 @@ function Products() {
           </Typography>
         </CardContent>
         <CardActions>
-          <Button variant="contained">
+          <Button variant="contained"  onClick={() => handleAddToCart(product)}>
             Add To Cart
           </Button>
         </CardActions>

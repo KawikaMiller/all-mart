@@ -8,6 +8,8 @@ function SimpleCart(props) {
 
   return(
     <>
+    {cartState.items.map(item => <p>{item.name} x {item.quantity}</p>)}
+    <p>SubTotal: ${cartState.total.toFixed(2)}</p>
     </>
   )
 
