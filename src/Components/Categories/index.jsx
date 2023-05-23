@@ -8,15 +8,27 @@ function Categories (props) {
   const dispatch = useDispatch();
 
   const handleClick = (event) => {
-    dispatch({
-      type: 'SET_ACTIVECATEGORY',
-      payload: event.target.innerText
-    })
-    let categorySelectors = document.getElementsByClassName('activeCategory');
-    for (let i = 0; i < categorySelectors.length; i++ ){
-      categorySelectors[i].classList.remove('activeCategory')
+    if (event.target.innerText === categories.activeCategory.display) {
+      dispatch({
+        type: 'CLEAR_ACTIVECATEGORY',
+        payload: ''
+      })
+      let categorySelectors = document.getElementsByClassName('activeCategory');
+      for (let i = 0; i < categorySelectors.length; i++ ){
+        categorySelectors[i].classList.remove('activeCategory')
+      }
+    } else {
+      dispatch({
+        type: 'SET_ACTIVECATEGORY',
+        payload: event.target.innerText
+      })
+      let categorySelectors = document.getElementsByClassName('activeCategory');
+      for (let i = 0; i < categorySelectors.length; i++ ){
+        categorySelectors[i].classList.remove('activeCategory')
+      }
+      event.target.classList.add('activeCategory');      
     }
-    event.target.classList.add('activeCategory');
+
   }
 
   return (

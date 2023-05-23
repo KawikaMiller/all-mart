@@ -22,6 +22,10 @@ const categoryReducer = (state = initialCategoryState, action) => {
         activeCategory: state.categories.find(category => category.display === action.payload)
       }
     case 'CLEAR_ACTIVECATEGORY':
+      return{
+        categories: state.categories,
+        activeCategory: {}
+      }
     default: 
       return state;
   }
