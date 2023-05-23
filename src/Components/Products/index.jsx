@@ -14,7 +14,6 @@ function Products() {
     
     for (let i = 0; i < cartState.items.length; i++){
       if (cartState.items[i].name === product.name){
-        console.log('found item')
         dispatch({
           type: 'MODIFY_QUANTITY',
           payload: {
@@ -52,7 +51,7 @@ function Products() {
           return <Card key={`${product.name}_card`} sx={{width: 300, height: 300, margin: '1rem'}}>
             <CardHeader 
               title={product.name}
-              subheader={product.price}
+              subheader={`$${product.price}`}
             />
             <CardMedia
               sx={{height: 100}} 
@@ -81,7 +80,7 @@ function Products() {
       return <Card key={`${product.name}_card`} sx={{width: 300, height: 300, margin: '1rem'}}>
         <CardHeader 
           title={product.name}
-          subheader={product.price}
+          subheader={`$${product.price}`}
         />
         <CardMedia
           sx={{height: 100}} 
