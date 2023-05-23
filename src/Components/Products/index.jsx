@@ -17,10 +17,7 @@ function Products() {
         dispatch({
           type: 'MODIFY_QUANTITY',
           payload: {
-            category: product.category,
             name: product.name,
-            description: product.description,
-            price: product.price,
             quantity: 1
           }
         })
