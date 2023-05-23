@@ -2,7 +2,8 @@ const initialCartState = {
   items: [
 
   ],
-  total: 0
+  total: 0,
+  showCart: false,
 }
 
 const cartReducer = (state = initialCartState, action) => {
@@ -32,6 +33,11 @@ const cartReducer = (state = initialCartState, action) => {
         items: prevItems,
         total: state.total + action.payload.price
       };
+    case 'TOGGLE_CART':
+      return {
+        ...state,
+        showCart: action.payload
+      }
     default:
        return state;
   }

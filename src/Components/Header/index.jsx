@@ -6,8 +6,20 @@ import Toolbar from '@mui/material/Toolbar';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
+import { useDispatch, useSelector } from "react-redux";
 
 function Header(props) {
+
+  const cartState = useSelector(storefrontState => storefrontState.cart);
+
+  const dispatch = useDispatch();
+
+  const toggleCart = () => {
+    dispatch({
+      type: 'TOGGLE_CART',
+      payload: !cartState.showCart
+    })
+  }
 
   return(
     <Box component='header' id='storeHeader' sx={{ flexGrow: 1 }}>
@@ -25,7 +37,7 @@ function Header(props) {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Pet Store
           </Typography>
-          <Button color="inherit">Cart</Button>
+          <Button color="inherit" onClick={toggleCart}>Cart</Button>
         </Toolbar>
       </AppBar>      
     </Box>
