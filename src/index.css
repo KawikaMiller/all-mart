@@ -11,7 +11,7 @@
 
 main {
   margin: 2rem;
-  height: calc(100vh - calc(var(--heightHeaderFooter) * 2));
+  min-height: calc(100vh - calc(var(--heightHeaderFooter) * 2));
 }
 
 header {
@@ -30,6 +30,10 @@ footer {
   flex-wrap: wrap;
 }
 
+.categorySelector {
+  cursor: pointer;
+}
+
 #categoryContainer * {
   width: 125px;
   padding: 1.5rem;
@@ -40,4 +44,10 @@ footer {
 .activeCategory {
   border: 2px solid red;
   /* background-color: blue; */
+}
+
+#productsContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
