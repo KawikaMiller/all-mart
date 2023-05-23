@@ -4,7 +4,7 @@ import storefrontReducer from "../store";
 import { createStore } from "redux";
 import Products from "../Components/Products";
 import Categories from "../Components/Categories";
-import { render, screen } from "@testing-library/react";
+import { render, screen, fireEvent } from "@testing-library/react";
 import { Provider } from "react-redux";
 import userEvent from "@testing-library/user-event";
 import { act } from "react-dom/test-utils";
@@ -35,12 +35,12 @@ describe('Testing storefront...', () => {
       </Provider>
     )
     
-    act(() => userEvent.click(screen.getByText('Pet Food')));
-    expect(screen.getByText('Dry Food')).toBeVisible;
-    expect(screen.getByText('Wet Food')).toBeVisible;
+    fireEvent.click(screen.getByText('Pet Food'));
+    expect(screen.getByText('Dry Food')).toBeVisible();
+    expect(screen.getByText('Wet Food')).toBeVisible();
     // these tests are passing when `.not` is included AND if `.not` is not included...???
-    expect(screen.getByText('Leash')).not.toBeVisible;
-    expect(screen.getByText('Collar')).not.toBeVisible;
+    expect(screen.getByText('Leash')).not.toBeVisible();
+    expect(screen.getByText('Collar')).not.toBeVisible();
 
     
   })
