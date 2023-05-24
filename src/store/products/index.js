@@ -34,8 +34,7 @@ const initialProductsState = {
 export const fetchProducts = () => async (dispatch) => {
   let response = await fetch('https://api-js401.herokuapp.com/api/v1/products');
   let data = await response.json()
-  console.log('FETCHED PRODUCTS: ', data)
-
+  
   dispatch({
     type: 'FETCH_PRODUCTS',
     payload: data.results

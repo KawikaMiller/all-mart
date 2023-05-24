@@ -9,7 +9,6 @@ function Categories (props) {
   const dispatch = useDispatch();
 
   const handleClick = (event) => {
-    console.log('category state: ', categories);
     if (event.target.innerText === categories.activeCategory.name) {
       dispatch({
         type: 'CLEAR_ACTIVECATEGORY',

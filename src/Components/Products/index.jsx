@@ -23,9 +23,15 @@ function Products() {
     }
   }
 
+  // fetches product data when component mounts (when page loads)
   useEffect(() => {
     dispatch(fetchProducts())
   }, [])
+
+  // fetches product data from the server any time our cart is modified so that the state stays in sync with whats on the server
+  useEffect(() => {
+    dispatch(fetchProducts());
+  }, [cartState])
 
   return(
     <Container key='productsContainer' id='productsContainer'>
