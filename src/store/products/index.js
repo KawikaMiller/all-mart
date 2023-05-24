@@ -42,7 +42,7 @@ export const fetchProducts = () => async (dispatch) => {
   })
 }
 
-export const isProductInStock = (productId) => async (dispatch) => {
+export const addItemToCart = (productId) => async (dispatch) => {
   let response = await fetch(`https://api-js401.herokuapp.com/api/v1/products/${productId}`);
   let product = await response.json()
 
@@ -51,8 +51,9 @@ export const isProductInStock = (productId) => async (dispatch) => {
   } else {
 
     try{
+
       let body = {inStock: product.inStock - 1};
-      console.log(body)
+
       fetch(`https://api-js401.herokuapp.com/api/v1/products/${productId}`, {
         method: 'PUT',
         headers: {
@@ -66,6 +67,7 @@ export const isProductInStock = (productId) => async (dispatch) => {
         dispatch({
           type: 'ADD_TO_CART',
           payload: {
+            _id: product._id,
             category: product.category,
             name: product.name,
             // description: product.description,

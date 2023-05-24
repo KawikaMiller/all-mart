@@ -6,18 +6,51 @@ const initialCartState = {
   showCart: false,
 }
 
+export const removeItemFromCart = (product) => async (dispatch) => {
+
+  console.log('PRODUCT QUANTITY: ', product)
+
+  let response = await fetch(`https://api-js401.herokuapp.com/api/v1/products/${product._id}`);
+  let foundProduct = await response.json()
+
+
+
+  try{
+    let body = {inStock: foundProduct.inStock + product.quantity};
+    fetch(`https://api-js401.herokuapp.com/api/v1/products/${product._id}`, {
+      method: 'PUT',
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json"
+      },
+      body: JSON.stringify(body)
+    })
+    .then( response =>{
+      console.log(response);
+      dispatch({
+        type: 'REMOVE_FROM_CART',
+        payload: product._id
+      })}        
+    )
+    .catch(err => {
+      console.log('Error making PUT request to update product stock', err)
+    })
+
+  } catch(e){
+    console.log('Could not make PUT request', e)
+  }
+}
+
 const cartReducer = (state = initialCartState, action) => {
   switch(action.type){
     case 'ADD_TO_CART':
-      // console.log('ADD TO CART ACTION TRIGGERED')
       return {
         ...state,
         items: [...state.items, action.payload],
         total: state.total + action.payload.price
       };
     case 'REMOVE_FROM_CART':
-      // console.log('REMOVE FROM CART ACTION TRIGGERED')
-      let remainingItems = state.items.filter(item => item.name !== action.payload.name);
+      let remainingItems = state.items.filter(item => item._id !== action.payload);
 
       let newTotal = remainingItems.reduce((acc, current) => {return acc + (current.price * current.quantity)}, 0)
 
@@ -27,7 +60,6 @@ const cartReducer = (state = initialCartState, action) => {
         total: newTotal,
       }
     case 'MODIFY_QUANTITY':
-      // console.log('MODIFY QUANTITY ACTION TRIGGERED')
       let cartItems = [...state.items];
 
       let foundItem = cartItems.find(item => item.name === action.payload.name);

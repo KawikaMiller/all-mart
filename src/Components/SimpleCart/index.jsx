@@ -2,6 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { Drawer, Button, Typography, Container, Box } from "@mui/material";
+import { removeItemFromCart } from "../../store/cart";
 
 function SimpleCart(props) {
 
@@ -9,11 +10,8 @@ function SimpleCart(props) {
   const productState = useSelector(storefrontState => storefrontState.products);
   const dispatch = useDispatch();
 
-  const removeItemFromCart = (product) => {
-    dispatch({
-      type: 'REMOVE_FROM_CART',
-      payload: product
-    })
+  const removeItem = (product) => {
+    dispatch(removeItemFromCart(product))
   }
 
   const modifyItemInCart = (event, product) => {
@@ -96,7 +94,7 @@ function SimpleCart(props) {
               <Typography variant='overline'>{item.name} x {item.quantity}</Typography>
 
               <Box sx={{display: 'flex', width: '100%', justifyContent: 'space-between'}}>
-                <Button variant='contained' color='error' onClick={() => {removeItemFromCart(item)}}>Remove</Button>                
+                <Button variant='contained' color='error' onClick={() => {removeItem(item)}}>Remove</Button>                
                 <Box>
                   <Button variant='contained' value={1} onClick={(event) => modifyItemInCart(event, item)}>+</Button>
                   <Button variant='contained' value={-1} onClick={(event) => modifyItemInCart(event, item)}>-</Button>                  

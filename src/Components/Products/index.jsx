@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { Card, CardActions, CardContent, CardHeader, Typography, CardMedia, Container, Button } from "@mui/material";
-import { fetchProducts, isProductInStock } from "../../store/products";
+import { addItemToCart, fetchProducts} from "../../store/products";
 
 function Products() {
 
@@ -51,7 +51,7 @@ function Products() {
     //   }
     // })
 
-    dispatch(isProductInStock(foundProduct._id));
+    dispatch(addItemToCart(foundProduct._id));
           
     }
   }
