@@ -1,15 +1,57 @@
 import React from "react";
 import { useSelector } from "react-redux";
-// import { useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { Card, CardActions, CardContent, CardHeader, Typography, CardMedia, Container, Button } from "@mui/material";
 
 function Products() {
 
   const productState = useSelector(storefrontState => storefrontState.products);
   const categoryState = useSelector(storefrontState => storefrontState.categories);
-  // const dispatch = useDispatch();
+  const cartState = useSelector(storefrontState => storefrontState.cart);
+  const dispatch = useDispatch();
 
-  // console.log(categoryState.activeCategory.name)
+  const handleAddToCart = (product) => {
+
+    let foundProduct = productState.allProducts.find(item => item.name === product.name);
+
+    // if product is in stock, update the number of products in stock
+    if (foundProduct.stock > 0) {
+      dispatch({
+        type: 'UPDATE_STOCK',
+        payload: {
+          name: foundProduct.name,
+          quantity: 1
+        }
+      })
+
+    // after stock has been updated, either add a new item to the cart or modify the cart item's quantity if the item is already in the cart
+    for (let i = 0; i < cartState.items.length; i++){
+      if (cartState.items[i].name === product.name){
+        dispatch({
+          type: 'MODIFY_QUANTITY',
+          payload: {
+            name: product.name,
+            quantity: 1
+          }
+        })
+        // prevents code from further executing
+        return;
+      }
+    }
+
+    dispatch({
+      type: 'ADD_TO_CART',
+      payload: {
+        category: product.category,
+        name: product.name,
+        description: product.description,
+        price: product.price,
+        quantity: 1
+      }
+    })
+          
+    }
+  }
 
   return(
     <Container key='productsContainer' id='productsContainer'>
@@ -22,7 +64,7 @@ function Products() {
           return <Card key={`${product.name}_card`} sx={{width: 300, height: 300, margin: '1rem'}}>
             <CardHeader 
               title={product.name}
-              subheader={product.price}
+              subheader={`$${product.price}`}
             />
             <CardMedia
               sx={{height: 100}} 
@@ -34,9 +76,13 @@ function Products() {
               </Typography>
             </CardContent>
             <CardActions>
-              <Button variant="contained">
-                Add To Cart
-              </Button>
+              {product.stock > 0 ? 
+                  <Button variant="contained" onClick={() => handleAddToCart(product)}>
+                    Add To Cart
+                  </Button>                
+                : 
+                  <Button disabled variant="contained">Out of Stock</Button>
+              }
             </CardActions>
           </Card>   
 
@@ -50,7 +96,7 @@ function Products() {
       return <Card key={`${product.name}_card`} sx={{width: 300, height: 300, margin: '1rem'}}>
         <CardHeader 
           title={product.name}
-          subheader={product.price}
+          subheader={`$${product.price}`}
         />
         <CardMedia
           sx={{height: 100}} 
@@ -62,9 +108,13 @@ function Products() {
           </Typography>
         </CardContent>
         <CardActions>
-          <Button variant="contained">
-            Add To Cart
-          </Button>
+          {product.stock > 0 ? 
+              <Button variant="contained" onClick={() => handleAddToCart(product)}>
+                Add To Cart
+              </Button>                
+            : 
+              <Button disabled variant="contained">Out of Stock</Button>
+          }
         </CardActions>
       </Card>
     })}

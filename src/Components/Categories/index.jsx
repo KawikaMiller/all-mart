@@ -35,11 +35,20 @@ function Categories (props) {
     props.categories ? 
     <>
       <Typography>Categories:</Typography>
-      <Container id='categoryContainer'>
+      <Container id='categoryContainer' data-testid='categoryContainer'>
         {props.categories.map(category => {
-          return <Paper key={`paper_${category.name}`} onClick={handleClick} elevation={4} className="categorySelector">{category.display}</Paper>
+          return (
+            <Paper 
+              key={`paper_${category.name}`}
+              data-testid={`paper_${category.name}`} 
+              onClick={handleClick} 
+              elevation={4} 
+              className="categorySelector"
+            >
+              {category.display}
+            </Paper>
+          )
         })}
-        {/* <p>{categories.activeCategory.display}</p>      */}
       </Container>    
     </>
     : 
