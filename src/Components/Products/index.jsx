@@ -76,10 +76,13 @@ function Products() {
               </Typography>
             </CardContent>
             <CardActions>
-              <Button variant="contained" onClick={() => handleAddToCart(product)}>
-                Add To Cart
-              </Button>
-              
+              {product.stock > 0 ? 
+                  <Button variant="contained" onClick={() => handleAddToCart(product)}>
+                    Add To Cart
+                  </Button>                
+                : 
+                  <Button disabled variant="contained">Out of Stock</Button>
+              }
             </CardActions>
           </Card>   
 
@@ -105,9 +108,13 @@ function Products() {
           </Typography>
         </CardContent>
         <CardActions>
-          <Button variant="contained"  onClick={() => handleAddToCart(product)}>
-            Add To Cart
-          </Button>
+          {product.stock > 0 ? 
+              <Button variant="contained" onClick={() => handleAddToCart(product)}>
+                Add To Cart
+              </Button>                
+            : 
+              <Button disabled variant="contained">Out of Stock</Button>
+          }
         </CardActions>
       </Card>
     })}

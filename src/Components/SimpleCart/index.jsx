@@ -17,9 +17,9 @@ function SimpleCart(props) {
   }
 
   const modifyItemInCart = (event, product) => {
-
     // if we are increasing the quantity of an item in the cart
     if (parseInt(event.target.value) > 0){
+
       let foundProduct = productState.allProducts.find(item => item.name === product.name)
 
       if (foundProduct.stock > 0) {
@@ -63,9 +63,7 @@ function SimpleCart(props) {
           quantity: parseInt(event.target.value)
         }
       })     
-
     }
-
   }
 
   const toggleCart = () => {
@@ -111,7 +109,13 @@ function SimpleCart(props) {
         })}
         </div> 
 
-        <Typography align="center" >SubTotal: ${cartState.total.toFixed(2)}</Typography >
+
+        <Button variant="contained" onClick={() => {console.log('https://imgflip.com/s/meme/Shut-Up-And-Take-My-Money-Fry.jpg')}}>
+          <Box sx={{display: 'flex', flexDirection: 'column'}}>
+            <Typography align="center" variant="button">Checkout</Typography>
+            <Typography align="center" variant='caption' >SubTotal: ${cartState.total.toFixed(2)}</Typography >            
+          </Box>
+        </Button>
 
       </Drawer>    
     </React.Fragment>
