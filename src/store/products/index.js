@@ -31,6 +31,17 @@ const initialProductsState = {
   ]
 }
 
+export const fetchProducts = () => async (dispatch) => {
+  let response = await fetch('https://api-js401.herokuapp.com/api/v1/products');
+  let data = await response.json()
+  console.log('FETCHED PRODUCTS: ', data)
+
+  dispatch({
+    type: 'FETCH_PRODUCTS',
+    payload: data.results
+  })
+}
+
 const productsReducer = (state = initialProductsState, action) => {
   switch(action.type) {
     case 'UPDATE_STOCK':
@@ -39,6 +50,11 @@ const productsReducer = (state = initialProductsState, action) => {
       foundProduct.stock -= action.payload.quantity;
       return{
         allProducts: products
+      }
+    case 'FETCH_PRODUCTS':
+      return{
+        ...state,
+        allProducts: action.payload
       }
     default:
       return state;

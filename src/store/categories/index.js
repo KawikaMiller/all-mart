@@ -21,7 +21,7 @@ export const fetchCategories = () => async(dispatch) => {
 
   dispatch({
     type: 'FETCH_CATEGORIES',
-    payload: data
+    payload: data.results
   })
 }
 
@@ -31,7 +31,7 @@ const categoryReducer = (state = initialCategoryState, action) => {
     case 'SET_ACTIVECATEGORY':
       return{
         categories: state.categories,
-        activeCategory: state.categories.find(category => category.display === action.payload)
+        activeCategory: state.categories.find(category => category.name === action.payload.toLowerCase())
       }
     case 'CLEAR_ACTIVECATEGORY':
       return{
@@ -39,10 +39,10 @@ const categoryReducer = (state = initialCategoryState, action) => {
         activeCategory: {}
       }
     case 'FETCH_CATEGORIES':
-      console.log('REDUCER: ', action.payload.results)
+      console.log('REDUCER: ', action.payload)
         return{
           ...state,
-          categories: action.payload.results
+          categories: action.payload
         }
     default: 
       return state;

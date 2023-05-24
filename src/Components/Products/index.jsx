@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { Card, CardActions, CardContent, CardHeader, Typography, CardMedia, Container, Button } from "@mui/material";
+import { fetchProducts } from "../../store/products";
 
 function Products() {
 
@@ -53,10 +54,15 @@ function Products() {
     }
   }
 
+  useEffect(() => {
+    dispatch(fetchProducts())
+  }, [])
+
   return(
     <Container key='productsContainer' id='productsContainer'>
+    
     {categoryState.activeCategory.name ?
-
+      // displays products only if they match the active category
       productState.allProducts.map(product => {
         
         if(product.category === categoryState.activeCategory.name){
@@ -76,7 +82,7 @@ function Products() {
               </Typography>
             </CardContent>
             <CardActions>
-              {product.stock > 0 ? 
+              {product.inStock > 0 ? 
                   <Button variant="contained" onClick={() => handleAddToCart(product)}>
                     Add To Cart
                   </Button>                
@@ -91,33 +97,33 @@ function Products() {
       })   
 
     : 
-
-    productState.allProducts.map(product => {
-      return <Card key={`${product.name}_card`} sx={{width: 300, height: 300, margin: '1rem'}}>
-        <CardHeader 
-          title={product.name}
-          subheader={`$${product.price}`}
-        />
-        <CardMedia
-          sx={{height: 100}} 
-          image='https://placehold.co/200.png'
-        />
-        <CardContent>
-          <Typography variant="body2">
-            {product.description}
-          </Typography>
-        </CardContent>
-        <CardActions>
-          {product.stock > 0 ? 
-              <Button variant="contained" onClick={() => handleAddToCart(product)}>
-                Add To Cart
-              </Button>                
-            : 
-              <Button disabled variant="contained">Out of Stock</Button>
-          }
-        </CardActions>
-      </Card>
-    })}
+      // displays all products when there is no active category
+      productState.allProducts.map(product => {
+        return <Card key={`${product.name}_card`} sx={{width: 300, height: 300, margin: '1rem'}}>
+          <CardHeader 
+            title={product.name}
+            subheader={`$${product.price}`}
+          />
+          <CardMedia
+            sx={{height: 100}} 
+            image='https://placehold.co/200.png'
+          />
+          <CardContent>
+            <Typography variant="body2">
+              {product.description}
+            </Typography>
+          </CardContent>
+          <CardActions>
+            {product.inStock > 0 ? 
+                <Button variant="contained" onClick={() => handleAddToCart(product)}>
+                  Add To Cart
+                </Button>                
+              : 
+                <Button disabled variant="contained">Out of Stock</Button>
+            }
+          </CardActions>
+        </Card>
+      })}
     </Container>
   )
 
