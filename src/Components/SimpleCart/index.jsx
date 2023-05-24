@@ -77,7 +77,8 @@ function SimpleCart(props) {
     <React.Fragment key='right'>
       <Drawer 
         anchor="right" 
-        open={cartState.showCart} 
+        open={cartState.showCart}
+        data-testid='cart' 
         onClose={toggleCart}
         PaperProps={{
           sx: {
