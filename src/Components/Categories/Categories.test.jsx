@@ -4,7 +4,7 @@ import { createStore } from "redux";
 import storefrontReducer from '../../store';
 
 import { render, screen, fireEvent, act } from '@testing-library/react';
-import userEvent from "@testing-library/user-event";
+// import userEvent from "@testing-library/user-event";
 
 describe('Testing Categories component...', () => {
 

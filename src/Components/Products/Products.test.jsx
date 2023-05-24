@@ -3,10 +3,7 @@ import { Provider } from "react-redux";
 import { createStore } from "redux";
 import storefrontReducer from '../../store';
 
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
-
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 
 describe('Testing Products component...', () => {
 
