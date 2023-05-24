@@ -1,0 +1,73 @@
+import Products from './index';
+import { Provider } from "react-redux";
+import { createStore } from "redux";
+import storefrontReducer from '../../store';
+
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+
+import { render, screen, fireEvent } from '@testing-library/react';
+
+describe('Testing Products component...', () => {
+
+  test('All products should be visible when no active category set', () => {
+
+    const store = createStore(storefrontReducer);
+
+    render(
+      <Provider store={store}>
+        <Products />
+      </Provider>
+    )
+
+    expect(screen.getByText('Dry Food')).toBeVisible;
+    expect(screen.getByText('Wet Food')).toBeVisible;
+    expect(screen.getByText('Leash')).toBeVisible;
+    expect(screen.getByText('Collar')).toBeVisible;
+  })
+
+  test('Can only see food products when food category is active', () => {
+
+    const store = createStore(storefrontReducer);
+
+    render(
+      <Provider store={store}>
+        <Products />
+      </Provider>
+    )
+
+    store.dispatch({
+      type: 'SET_ACTIVECATEGORY',
+      payload: 'Pet Food'
+    })
+
+    expect(screen.getByText('Dry Food')).toBeVisible;
+    expect(screen.getByText('Wet Food')).toBeVisible;
+    expect(screen.getByText('Leash')).not.toBeVisible;
+    expect(screen.getByText('Collar')).not.toBeVisible;
+  })
+
+  test('Can only see accessories products when accessories category is active', () => {
+
+    const store = createStore(storefrontReducer);
+
+    render(
+      <Provider store={store}>
+        <Products />
+      </Provider>
+    )
+
+    store.dispatch({
+      type: 'SET_ACTIVECATEGORY',
+      payload: 'Pet Accessories'
+    })
+
+    expect(screen.getByText('Dry Food')).not.toBeVisible;
+    expect(screen.getByText('Wet Food')).not.toBeVisible;
+    expect(screen.getByText('Leash')).toBeVisible;
+    expect(screen.getByText('Collar')).toBeVisible;
+  })
+
+
+
+})
