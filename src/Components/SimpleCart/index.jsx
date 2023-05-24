@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { Drawer, Button, Typography, Container, Box } from "@mui/material";
 import { removeItemFromCart } from "../../store/cart";
+import { modifyCartItemQuantity } from "../../store/cart";
 
 function SimpleCart(props) {
 
@@ -15,53 +16,7 @@ function SimpleCart(props) {
   }
 
   const modifyItemInCart = (event, product) => {
-    // if we are increasing the quantity of an item in the cart
-    if (parseInt(event.target.value) > 0){
-
-      let foundProduct = productState.allProducts.find(item => item.name === product.name)
-
-      if (foundProduct.stock > 0) {
-
-        dispatch({
-          type: 'MODIFY_QUANTITY',
-          payload: {
-            name: product.name,
-            quantity: parseInt(event.target.value)
-          }
-        })
-    
-        dispatch({
-          type: 'UPDATE_STOCK',
-          payload: {
-            name: product.name,
-            quantity: parseInt(event.target.value)
-          }
-        })
-
-      } else {
-        console.error(`There are no more ${product.name} in stock`)
-      }
-
-    } 
-    // else we are decreasing the quantity of an item in the cart
-    else if (parseInt(event.target.value) < 0){
-      
-      dispatch({
-        type: 'MODIFY_QUANTITY',
-        payload: {
-          name: product.name,
-          quantity: parseInt(event.target.value)
-        }
-      })
-
-      dispatch({
-        type: 'UPDATE_STOCK',
-        payload: {
-          name: product.name,
-          quantity: parseInt(event.target.value)
-        }
-      })     
-    }
+    dispatch(modifyCartItemQuantity(product, parseInt(event.target.value)))
   }
 
   const toggleCart = () => {

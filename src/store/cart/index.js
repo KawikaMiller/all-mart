@@ -40,6 +40,12 @@ export const modifyCartItemQuantity = (product, quantityChange) => async (dispat
   // find cart item id in server products
   let response = await fetch(`https://api-js401.herokuapp.com/api/v1/products/${product._id}`);
   let foundProduct = await response.json()
+
+  // if we are trying to increment an item's quantity in our cart AND the product is out of stock, then we throw an error
+  if (quantityChange > 0 && foundProduct.inStock <= 0) {
+    throw new Error('Unable to add more of this item to your cart. Item may be out of stock.')
+  }
+
   // update server side stock
   try{
     let body = {inStock: foundProduct.inStock - quantityChange};
@@ -64,11 +70,9 @@ export const modifyCartItemQuantity = (product, quantityChange) => async (dispat
     .catch(err => {
       console.log('Error making PUT request to update product stock', err)
     })
-
   } catch(e){
     console.log('Could not make PUT request', e)
   }
-  // update cart quantity
 }
 
 const cartReducer = (state = initialCartState, action) => {
