@@ -7,13 +7,8 @@ const initialCartState = {
 }
 
 export const removeItemFromCart = (product) => async (dispatch) => {
-
-  console.log('PRODUCT QUANTITY: ', product)
-
   let response = await fetch(`https://api-js401.herokuapp.com/api/v1/products/${product._id}`);
   let foundProduct = await response.json()
-
-
 
   try{
     let body = {inStock: foundProduct.inStock + product.quantity};
@@ -41,6 +36,41 @@ export const removeItemFromCart = (product) => async (dispatch) => {
   }
 }
 
+export const modifyCartItemQuantity = (product, quantityChange) => async (dispatch) => {
+  // find cart item id in server products
+  let response = await fetch(`https://api-js401.herokuapp.com/api/v1/products/${product._id}`);
+  let foundProduct = await response.json()
+  // update server side stock
+  try{
+    let body = {inStock: foundProduct.inStock - quantityChange};
+    fetch(`https://api-js401.herokuapp.com/api/v1/products/${product._id}`, {
+      method: 'PUT',
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json"
+      },
+      body: JSON.stringify(body)
+    })
+    .then( response =>{
+      console.log(response);
+      dispatch({
+        type: 'MODIFY_ITEM_QUANTITY',
+        payload: {
+          product: product,
+          quantityChange: quantityChange
+        }
+      })}        
+    )
+    .catch(err => {
+      console.log('Error making PUT request to update product stock', err)
+    })
+
+  } catch(e){
+    console.log('Could not make PUT request', e)
+  }
+  // update cart quantity
+}
+
 const cartReducer = (state = initialCartState, action) => {
   switch(action.type){
     case 'ADD_TO_CART':
@@ -59,15 +89,15 @@ const cartReducer = (state = initialCartState, action) => {
         items: remainingItems,
         total: newTotal,
       }
-    case 'MODIFY_QUANTITY':
+    case 'MODIFY_ITEM_QUANTITY':
       let cartItems = [...state.items];
 
-      let foundItem = cartItems.find(item => item.name === action.payload.name);
+      let foundItem = cartItems.find(item => item.name === action.payload.product.name);
       
-      foundItem.quantity += action.payload.quantity;
+      foundItem.quantity += action.payload.quantityChange;
 
       if(foundItem.quantity === 0) {
-        cartItems = state.items.filter(item => item.name !== action.payload.name)
+        cartItems = state.items.filter(item => item.name !== action.payload.product.name)
       }
 
       let modifiedTotal = cartItems.reduce((acc, current) => {return acc + (current.price * current.quantity)}, 0)

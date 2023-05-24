@@ -49,9 +49,7 @@ export const addItemToCart = (productId) => async (dispatch) => {
   if (product.inStock <= 0){
     console.error('Item is no longer in stock')
   } else {
-
     try{
-
       let body = {inStock: product.inStock - 1};
 
       fetch(`https://api-js401.herokuapp.com/api/v1/products/${productId}`, {
@@ -88,16 +86,6 @@ export const addItemToCart = (productId) => async (dispatch) => {
 
 const productsReducer = (state = initialProductsState, action) => {
   switch(action.type) {
-    case 'UPDATE_STOCK':
-      let products = [...state.allProducts]
-
-      let foundProduct = products.find(item => item.name === action.payload.name);
-
-      foundProduct.stock -= action.payload.quantity;
-
-      return{
-        allProducts: products
-      }
     case 'FETCH_PRODUCTS':
       return{
         ...state,

@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { Card, CardActions, CardContent, CardHeader, Typography, CardMedia, Container, Button } from "@mui/material";
 import { addItemToCart, fetchProducts} from "../../store/products";
+import { modifyCartItemQuantity } from "../../store/cart";
 
 function Products() {
 
@@ -12,47 +13,13 @@ function Products() {
   const dispatch = useDispatch();
 
   const handleAddToCart = (product) => {
-
-    let foundProduct = productState.allProducts.find(item => item.name === product.name);
-
-    // if product is in stock, update the number of products in stock
-    if (foundProduct.inStock > 0) {
-      dispatch({
-        type: 'UPDATE_STOCK',
-        payload: {
-          name: foundProduct.name,
-          quantity: 1
-        }
-      })
-
-    // after stock has been updated, either add a new item to the cart or modify the cart item's quantity if the item is already in the cart
-    for (let i = 0; i < cartState.items.length; i++){
-      if (cartState.items[i].name === product.name){
-        dispatch({
-          type: 'MODIFY_QUANTITY',
-          payload: {
-            name: product.name,
-            quantity: 1
-          }
-        })
-        // prevents code from further executing
-        return;
-      }
-    }
-
-    // dispatch({
-    //   type: 'ADD_TO_CART',
-    //   payload: {
-    //     category: product.category,
-    //     name: product.name,
-    //     description: product.description,
-    //     price: product.price,
-    //     quantity: 1
-    //   }
-    // })
-
-    dispatch(addItemToCart(foundProduct._id));
-          
+    // if product IS NOT in cart, add it to cart
+    if (!cartState.items.find(item => item._id === product._id)) {
+      dispatch(addItemToCart(product._id));  
+    } 
+    // otherwise, the product IS in the cart and we need to update the quantity of the item
+    else {
+      dispatch(modifyCartItemQuantity(product, 1));
     }
   }
 
