@@ -3,12 +3,10 @@ import { render, screen, fireEvent, act } from '@testing-library/react';
 import { Provider } from "react-redux";
 import { createStore } from "redux";
 import storefrontReducer from "../../store";
-import userEvent from "@testing-library/user-event";
 
 describe('Testing Header component...', () => {
 
   const store = createStore(storefrontReducer);
-  let cartState = store.getState().cart;
 
   test('Header should be visible', () => {
     render(
@@ -21,7 +19,7 @@ describe('Testing Header component...', () => {
     expect(screen.getByText('Cart')).toBeVisible()
   })
 
-  xtest('Click cart should trigger toggleCart', () => {
+  test('Simulate clicking on `Cart` button and toggling the `showCart` state', () => {
     
     render(
       <Provider store={store}>
@@ -29,9 +27,24 @@ describe('Testing Header component...', () => {
       </Provider>
     )
 
-    handleClick = jest.fn()
-    userEvent.click(screen.getByText('Cart'));
-    expect(handleClick).toBeCalled();
+    let showCartState = store.getState().cart.showCart;
+
+    store.dispatch({
+      type: 'TOGGLE_CART',
+      payload: !showCartState
+    })
+
+    expect(store.getState().cart.showCart).toBe(true)
+    expect(fireEvent.click(screen.getByText('Cart'))).toBe(true);
+
+    showCartState = store.getState().cart.showCart;
+
+    store.dispatch({
+      type: 'TOGGLE_CART',
+      payload: !showCartState
+    })
+
+    expect(store.getState().cart.showCart).toBe(false)
   })
 
 })

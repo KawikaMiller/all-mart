@@ -3,7 +3,7 @@ import { Provider } from "react-redux";
 import { createStore } from "redux";
 import storefrontReducer from '../../store';
 
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent, act } from '@testing-library/react';
 import userEvent from "@testing-library/user-event";
 
 describe('Testing Categories component...', () => {
@@ -22,7 +22,7 @@ describe('Testing Categories component...', () => {
     expect(screen.getByTestId('paper_accessories')).toBeVisible();
   })
 
-  xtest('handleClick should be called when a category is clicked on', () => {
+  test('Simulating changing active category', () => {
     const store = createStore(storefrontReducer);
     let categoryState = store.getState().categories;
 
@@ -32,10 +32,19 @@ describe('Testing Categories component...', () => {
       </Provider>
     )
     
-    handleClick = jest.fn();
+    act(() => store.dispatch({
+      type:'SET_ACTIVECATEGORY',
+      payload: 'Pet Food'
+    }))
 
-    fireEvent.click(screen.getByTestId('paper_food'));
-    expect(handleClick).toHaveBeenCalled();
+    expect(store.getState().categories.activeCategory.display).toBe('Pet Food')
+
+    act(() => store.dispatch({
+      type:'SET_ACTIVECATEGORY',
+      payload: ''
+    }))
+
+    expect(store.getState().categories.activeCategory?.display).toBeFalsy();
   })
 
 })
