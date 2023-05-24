@@ -14,6 +14,18 @@ const initialCategoryState = {
   activeCategory: {},
 }
 
+export const fetchCategories = () => async(dispatch) => {
+  let response = await fetch('https://api-js401.herokuapp.com/api/v1/categories');
+  let data = await response.json();
+  console.log('FETCH CATEGORIES: ', data)
+
+  dispatch({
+    type: 'FETCH_CATEGORIES',
+    payload: data
+  })
+}
+
+
 const categoryReducer = (state = initialCategoryState, action) => {
   switch (action.type) {
     case 'SET_ACTIVECATEGORY':
@@ -26,6 +38,12 @@ const categoryReducer = (state = initialCategoryState, action) => {
         categories: state.categories,
         activeCategory: {}
       }
+    case 'FETCH_CATEGORIES':
+      console.log('REDUCER: ', action.payload.results)
+        return{
+          ...state,
+          categories: action.payload.results
+        }
     default: 
       return state;
   }

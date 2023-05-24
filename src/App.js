@@ -1,6 +1,6 @@
 import React from "react";
 import { Provider } from "react-redux";
-import { createStore } from "redux";
+import { applyMiddleware, createStore } from "redux";
 import storefrontReducer from "./store";
 import Header from "./Components/Header";
 import Footer from "./Components/Footer";
@@ -9,8 +9,9 @@ import Products from "./Components/Products";
 import SimpleCart from "./Components/SimpleCart";
 
 import { Container } from "@mui/material";
+import thunk from "redux-thunk";
 
-const storeFront = createStore(storefrontReducer);
+const storeFront = createStore(storefrontReducer, applyMiddleware(thunk));
 
 function App() {
 

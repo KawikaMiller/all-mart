@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Container, Paper, Typography } from "@mui/material";
+import { fetchCategories } from "../../store/categories";
 
 function Categories (props) {
 
@@ -8,7 +9,7 @@ function Categories (props) {
   const dispatch = useDispatch();
 
   const handleClick = (event) => {
-    if (event.target.innerText === categories.activeCategory.display) {
+    if (event.target.innerText === categories.activeCategory.name) {
       dispatch({
         type: 'CLEAR_ACTIVECATEGORY',
         payload: ''
@@ -31,12 +32,16 @@ function Categories (props) {
 
   }
 
+  useEffect(() => {
+    dispatch(fetchCategories())
+  }, [])
+
   return (
-    props.categories ? 
+    categories.categories ? 
     <>
       <Typography>Categories:</Typography>
       <Container id='categoryContainer' data-testid='categoryContainer'>
-        {props.categories.map(category => {
+        {categories.categories.map(category => {
           return (
             <Paper 
               key={`paper_${category.name}`}
@@ -45,7 +50,7 @@ function Categories (props) {
               elevation={4} 
               className="categorySelector"
             >
-              {category.display}
+              {category.name[0].toUpperCase() + category.name.slice(1)}
             </Paper>
           )
         })}
