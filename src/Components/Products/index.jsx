@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { Card, CardActions, CardContent, CardHeader, Typography, CardMedia, Container, Button } from "@mui/material";
-import { fetchProducts } from "../../store/products";
+import { fetchProducts, isProductInStock } from "../../store/products";
 
 function Products() {
 
@@ -16,7 +16,7 @@ function Products() {
     let foundProduct = productState.allProducts.find(item => item.name === product.name);
 
     // if product is in stock, update the number of products in stock
-    if (foundProduct.stock > 0) {
+    if (foundProduct.inStock > 0) {
       dispatch({
         type: 'UPDATE_STOCK',
         payload: {
@@ -40,16 +40,18 @@ function Products() {
       }
     }
 
-    dispatch({
-      type: 'ADD_TO_CART',
-      payload: {
-        category: product.category,
-        name: product.name,
-        description: product.description,
-        price: product.price,
-        quantity: 1
-      }
-    })
+    // dispatch({
+    //   type: 'ADD_TO_CART',
+    //   payload: {
+    //     category: product.category,
+    //     name: product.name,
+    //     description: product.description,
+    //     price: product.price,
+    //     quantity: 1
+    //   }
+    // })
+
+    dispatch(isProductInStock(foundProduct._id));
           
     }
   }
