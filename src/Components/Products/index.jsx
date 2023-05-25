@@ -4,6 +4,8 @@ import { useDispatch } from "react-redux";
 import { Card, CardActions, CardContent, CardHeader, Typography, CardMedia, Container, Button } from "@mui/material";
 import { addItemToCart, fetchProducts} from "../../store/products";
 import { modifyCartItemQuantity } from "../../store/cart";
+import { Link } from "react-router-dom";
+import ProductDetails from "../ProductDetails";
 
 function Products() {
 
@@ -61,10 +63,21 @@ function Products() {
               </Typography>
             </CardContent>
             <CardActions>
-              {product.inStock > 0 ? 
-                  <Button variant="contained" onClick={() => handleAddToCart(product)}>
-                    Add To Cart
-                  </Button>                
+              {product.inStock > 0 ?
+                  <>
+                    <Button variant="contained" onClick={() => handleAddToCart(product)}>
+                      Add To Cart
+                    </Button>
+                    <Button variant='contained'>
+                      <Link 
+                        to={`/products/${product?._id}`} 
+                        style={{textDecoration: 'none'}}
+                        state={{product: product}}
+                      >
+                        Details
+                      </Link>
+                    </Button>                      
+                  </> 
                 : 
                   <Button disabled variant="contained">Out of Stock</Button>
               }
@@ -93,10 +106,22 @@ function Products() {
             </Typography>
           </CardContent>
           <CardActions>
-            {product.inStock > 0 ? 
+            {product.inStock > 0 ?
+              <>
                 <Button variant="contained" onClick={() => handleAddToCart(product)}>
                   Add To Cart
+                </Button>
+                <Button variant='contained'>
+                  <Link 
+                    to={`/products/${product?._id}`} 
+                    style={{textDecoration: 'none'}}
+                    state={{product: product}}
+                  >
+                    Details
+                  </Link>
                 </Button>                
+              </> 
+              
               : 
                 <Button disabled variant="contained">Out of Stock</Button>
             }

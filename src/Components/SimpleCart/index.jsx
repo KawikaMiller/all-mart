@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { Drawer, Button, Typography, Container, Box } from "@mui/material";
 import { removeItemFromCart } from "../../store/cart";
 import { modifyCartItemQuantity } from "../../store/cart";
+import { Link } from "react-router-dom";
 
 function SimpleCart(props) {
 
@@ -63,11 +64,13 @@ function SimpleCart(props) {
         </div> 
 
 
-        <Button variant="contained" onClick={() => {console.log('https://imgflip.com/s/meme/Shut-Up-And-Take-My-Money-Fry.jpg')}}>
-          <Box sx={{display: 'flex', flexDirection: 'column'}}>
-            <Typography align="center" variant="button">Checkout</Typography>
-            <Typography align="center" variant='caption' >SubTotal: ${cartState.total.toFixed(2)}</Typography >            
-          </Box>
+        <Button variant="contained" onClick={() => {console.log('https://imgflip.com/s/meme/Shut-Up-And-Take-My-Money-Fry.jpg')}} style={{padding: '0'}}>
+          <Link to={'/cart'} style={{width: '100%', padding: '0.5rem'}} state={{cart: cartState}}>
+            <Box sx={{display: 'flex', flexDirection: 'column', width: '100%'}}>
+              <Typography align="center" variant="button">Checkout</Typography>
+              <Typography align="center" variant='caption' >SubTotal: ${cartState.total.toFixed(2)}</Typography >            
+            </Box>          
+          </Link>
         </Button>
 
       </Drawer>    
