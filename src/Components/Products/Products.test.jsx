@@ -1,15 +1,16 @@
 import Products from './index';
 import { Provider } from "react-redux";
-import { createStore } from "redux";
+import { applyMiddleware, createStore } from "redux";
 import storefrontReducer from '../../store';
 
 import { render, screen } from '@testing-library/react';
+import thunk from 'redux-thunk';
 
 describe('Testing Products component...', () => {
 
   test('All products should be visible when no active category set', () => {
 
-    const store = createStore(storefrontReducer);
+    const store = createStore(storefrontReducer, applyMiddleware(thunk));
 
     render(
       <Provider store={store}>
@@ -25,7 +26,7 @@ describe('Testing Products component...', () => {
 
   test('Can only see food products when food category is active', () => {
 
-    const store = createStore(storefrontReducer);
+    const store = createStore(storefrontReducer, applyMiddleware(thunk));
 
     render(
       <Provider store={store}>
@@ -35,7 +36,7 @@ describe('Testing Products component...', () => {
 
     store.dispatch({
       type: 'SET_ACTIVECATEGORY',
-      payload: 'Pet Food'
+      payload: 'food'
     })
 
     expect(screen.getByText('Dry Food')).toBeVisible;
@@ -46,7 +47,7 @@ describe('Testing Products component...', () => {
 
   test('Can only see accessories products when accessories category is active', () => {
 
-    const store = createStore(storefrontReducer);
+    const store = createStore(storefrontReducer, applyMiddleware(thunk));
 
     render(
       <Provider store={store}>
@@ -56,7 +57,7 @@ describe('Testing Products component...', () => {
 
     store.dispatch({
       type: 'SET_ACTIVECATEGORY',
-      payload: 'Pet Accessories'
+      payload: 'accessories'
     })
 
     expect(screen.getByText('Dry Food')).not.toBeVisible;

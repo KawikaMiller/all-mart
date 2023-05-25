@@ -1,15 +1,15 @@
 import Categories from './index';
 import { Provider } from "react-redux";
-import { createStore } from "redux";
+import { applyMiddleware, createStore } from "redux";
 import storefrontReducer from '../../store';
-
 import { render, screen, fireEvent, act } from '@testing-library/react';
+import thunk from 'redux-thunk';
 // import userEvent from "@testing-library/user-event";
 
 describe('Testing Categories component...', () => {
 
   test('Categories component should be visible', () => {
-    const store = createStore(storefrontReducer);
+    const store = createStore(storefrontReducer, applyMiddleware(thunk));
     let categoryState = store.getState().categories;
 
     render(
@@ -23,7 +23,7 @@ describe('Testing Categories component...', () => {
   })
 
   test('Simulating changing active category', () => {
-    const store = createStore(storefrontReducer);
+    const store = createStore(storefrontReducer, applyMiddleware(thunk));
     let categoryState = store.getState().categories;
 
     render(
@@ -34,17 +34,17 @@ describe('Testing Categories component...', () => {
     
     act(() => store.dispatch({
       type:'SET_ACTIVECATEGORY',
-      payload: 'Pet Food'
+      payload: 'food'
     }))
 
-    expect(store.getState().categories.activeCategory.display).toBe('Pet Food')
+    expect(store.getState().categories.activeCategory.name).toBe('food')
 
     act(() => store.dispatch({
       type:'SET_ACTIVECATEGORY',
       payload: ''
     }))
 
-    expect(store.getState().categories.activeCategory?.display).toBeFalsy();
+    expect(store.getState().categories.activeCategory?.name).toBeFalsy();
   })
 
 })
