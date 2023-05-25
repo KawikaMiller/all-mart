@@ -37,7 +37,7 @@ function Header(props) {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Pet Store
           </Typography>
-          <Button color="inherit" onClick={toggleCart}>Cart</Button>
+          <Button color="inherit" onClick={toggleCart}>{`Cart (${cartState.items.reduce((acc, current) => (acc + current.quantity), 0)})`}</Button>
         </Toolbar>
       </AppBar>      
     </Box>
