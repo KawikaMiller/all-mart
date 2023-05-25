@@ -8,7 +8,6 @@ import { modifyCartItemQuantity } from "../../store/cart";
 function SimpleCart(props) {
 
   const cartState = useSelector(storefrontState => storefrontState.cart);
-  const productState = useSelector(storefrontState => storefrontState.products);
   const dispatch = useDispatch();
 
   const removeItem = (product) => {

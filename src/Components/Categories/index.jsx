@@ -34,7 +34,9 @@ function Categories (props) {
 
   useEffect(() => {
     dispatch(fetchCategories())
-  }, [])
+  }, 
+  // eslint-disable-next-line
+  [])
 
   return (
     categories.categories ? 
