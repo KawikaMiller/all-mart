@@ -1,3 +1,5 @@
+import { createSlice } from "@reduxjs/toolkit";
+
 const initialCartState = {
   items: [
 
@@ -6,37 +8,24 @@ const initialCartState = {
   showCart: false,
 }
 
-export const removeItemFromCart = (product) => async (dispatch) => {
+export const reStockServer = (product) => async () => {
+  // find product on server side
   let response = await fetch(`https://api-js401.herokuapp.com/api/v1/products/${product._id}`);
   let foundProduct = await response.json()
 
-  try{
-    let body = {inStock: foundProduct.inStock + product.quantity};
-    fetch(`https://api-js401.herokuapp.com/api/v1/products/${product._id}`, {
-      method: 'PUT',
-      headers: {
-        "Content-Type": "application/json",
-        "Accept": "application/json"
-      },
-      body: JSON.stringify(body)
-    })
-    .then( response =>{
-      console.log(response);
-      dispatch({
-        type: 'REMOVE_FROM_CART',
-        payload: product._id
-      })}        
-    )
-    .catch(err => {
-      console.log('Error making PUT request to update product stock', err)
-    })
-
-  } catch(e){
-    console.log('Could not make PUT request', e)
-  }
+  // update stock on server side
+  let body = {inStock: foundProduct.inStock + product.quantity};
+  await fetch(`https://api-js401.herokuapp.com/api/v1/products/${product._id}`, {
+    method: 'PUT',
+    headers: {
+      "Content-Type": "application/json",
+      "Accept": "application/json"
+    },
+    body: JSON.stringify(body)
+  })
 }
 
-export const modifyCartItemQuantity = (product, quantityChange) => async (dispatch) => {
+export const modifyServerSideStock = (product, quantityChange) => async () => {
   // find cart item id in server products
   let response = await fetch(`https://api-js401.herokuapp.com/api/v1/products/${product._id}`);
   let foundProduct = await response.json()
@@ -47,53 +36,50 @@ export const modifyCartItemQuantity = (product, quantityChange) => async (dispat
   }
 
   // update server side stock
-  try{
-    let body = {inStock: foundProduct.inStock - quantityChange};
-    fetch(`https://api-js401.herokuapp.com/api/v1/products/${product._id}`, {
-      method: 'PUT',
-      headers: {
-        "Content-Type": "application/json",
-        "Accept": "application/json"
-      },
-      body: JSON.stringify(body)
-    })
-    .then( response =>{
-      console.log(response);
-      dispatch({
-        type: 'MODIFY_ITEM_QUANTITY',
-        payload: {
-          product: product,
-          quantityChange: quantityChange
-        }
-      })}        
-    )
-    .catch(err => {
-      console.log('Error making PUT request to update product stock', err)
-    })
-  } catch(e){
-    console.log('Could not make PUT request', e)
-  }
+  let body = {inStock: foundProduct.inStock - quantityChange};
+
+  await fetch(`https://api-js401.herokuapp.com/api/v1/products/${product._id}`, {
+    method: 'PUT',
+    headers: {
+      "Content-Type": "application/json",
+      "Accept": "application/json"
+    },
+    body: JSON.stringify(body)
+  })
 }
 
-const cartReducer = (state = initialCartState, action) => {
-  switch(action.type){
-    case 'ADD_TO_CART':
-      return {
-        ...state,
-        items: [...state.items, action.payload],
-        total: state.total + action.payload.price
-      };
-    case 'REMOVE_FROM_CART':
-      let remainingItems = state.items.filter(item => item._id !== action.payload);
-
-      let newTotal = remainingItems.reduce((acc, current) => {return acc + (current.price * current.quantity)}, 0)
-
-      return {
-        ...state,
-        items: remainingItems,
-        total: newTotal,
+const cartSlice = createSlice({
+  name: 'cart',
+  initialState: {
+    items: [],
+    total: 0,
+    showCart: false
+  },
+  reducers: {
+    addToCart(state, action){
+      let item = {
+        _id: action.payload._id,
+        category: action.payload.category,
+        name: action.payload.name,
+        price: action.payload.price,
+        quantity: 1
       }
-    case 'MODIFY_ITEM_QUANTITY':
+      state.items = [...state.items, item];
+      state.total = state.total + action.payload.price;
+    },
+    removeFromCart(state, action){
+      // filter array so that the remaining items are the ones that DO NOT MATCH the id of the item we want to remove
+      let remainingItems = state.items.filter(item => item._id !== action.payload._id);
+
+      // recalculate the total
+      let newTotal = remainingItems.reduce((acc, current) => {return acc + (current.price * current.quantity)}, 0);
+
+      // set state
+      state.items = remainingItems;
+      state.total = newTotal;
+    },
+    modifyItemQuantity(state, action){
+      console.log('MODIFY: ', action)
       let cartItems = [...state.items];
 
       let foundItem = cartItems.find(item => item.name === action.payload.product.name);
@@ -104,21 +90,62 @@ const cartReducer = (state = initialCartState, action) => {
         cartItems = state.items.filter(item => item.name !== action.payload.product.name)
       }
 
-      let modifiedTotal = cartItems.reduce((acc, current) => {return acc + (current.price * current.quantity)}, 0)
+      let modifiedTotal = cartItems.reduce((acc, current) => {return acc + (current.price * current.quantity)}, 0);
 
-      return {
-        ...state,
-        items: cartItems,
-        total: modifiedTotal
-      };
-    case 'TOGGLE_CART':
-      return {
-        ...state,
-        showCart: action.payload
-      }
-    default:
-       return state;
+      state.items = cartItems;
+      state.total = modifiedTotal;
+
+    },
+    toggleShowCart(state, action){
+      state.showCart = !state.showCart
+    }
   }
-}
+})
 
-export default cartReducer;
+// const cartReducer = (state = initialCartState, action) => {
+//   switch(action.type){
+//     case 'ADD_TO_CART':
+//       return {
+//         ...state,
+//         items: [...state.items, action.payload],
+//         total: state.total + action.payload.price
+//       };
+//     case 'REMOVE_FROM_CART':
+//       let remainingItems = state.items.filter(item => item._id !== action.payload);
+
+//       let newTotal = remainingItems.reduce((acc, current) => {return acc + (current.price * current.quantity)}, 0)
+
+//       return {
+//         ...state,
+//         items: remainingItems,
+//         total: newTotal,
+//       }
+//     case 'MODIFY_ITEM_QUANTITY':
+//       let cartItems = [...state.items];
+
+//       let foundItem = cartItems.find(item => item.name === action.payload.product.name);
+      
+//       foundItem.quantity += action.payload.quantityChange;
+
+//       if(foundItem.quantity === 0) {
+//         cartItems = state.items.filter(item => item.name !== action.payload.product.name)
+//       }
+
+//       let modifiedTotal = cartItems.reduce((acc, current) => {return acc + (current.price * current.quantity)}, 0)
+
+//       return {
+//         ...state,
+//         items: cartItems,
+//         total: modifiedTotal
+//       };
+//     case 'TOGGLE_CART':
+//       return {
+//         ...state,
+//         showCart: action.payload
+//       }
+//     default:
+//        return state;
+//   }
+// }
+
+export default cartSlice;

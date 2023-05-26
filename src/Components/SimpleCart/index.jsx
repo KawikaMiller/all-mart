@@ -2,28 +2,33 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { Drawer, Button, Typography, Container, Box } from "@mui/material";
-import { removeItemFromCart } from "../../store/cart";
-import { modifyCartItemQuantity } from "../../store/cart";
+import { reStockServer } from "../../store/cart";
+import { modifyServerSideStock } from "../../store/cart";
 import { Link } from "react-router-dom";
+import cartSlice from "../../store/cart";
 
 function SimpleCart(props) {
+
+  let { toggleShowCart, removeFromCart, modifyItemQuantity } = cartSlice.actions;
 
   const cartState = useSelector(storefrontState => storefrontState.cart);
   const dispatch = useDispatch();
 
   const removeItem = (product) => {
-    dispatch(removeItemFromCart(product))
+    dispatch(reStockServer(product))
+    .then(dispatch(removeFromCart(product)))
   }
 
   const modifyItemInCart = (event, product) => {
-    dispatch(modifyCartItemQuantity(product, parseInt(event.target.value)))
+    dispatch(modifyServerSideStock(product, parseInt(event.target.value)))
+    .then(dispatch(modifyItemQuantity({
+      product,
+      quantityChange: parseInt(event.target.value)
+    })))
   }
 
   const toggleCart = () => {
-    dispatch({
-      type: 'TOGGLE_CART',
-      payload: !cartState.showCart
-    })
+    dispatch(toggleShowCart())
   }
 
   return(

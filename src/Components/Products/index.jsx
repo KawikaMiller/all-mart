@@ -5,8 +5,9 @@ import { Link } from "react-router-dom";
 
 import { Card, CardActions, CardContent, CardHeader, Typography, CardMedia, Container, Button } from "@mui/material";
 
-import { modifyCartItemQuantity } from "../../store/cart";
 import productsSlice from "../../store/products";
+import cartSlice from "../../store/cart";
+import { modifyServerSideStock } from "../../store/cart";
 import { addItemToCart, fetchProductsFromServer } from "../../store/products";
 
 function Products() {
@@ -16,16 +17,19 @@ function Products() {
   const cartState = useSelector(storefrontState => storefrontState.cart);
   const dispatch = useDispatch();
 
-  let {setAllProducts} = productsSlice.actions
+  let {setAllProducts} = productsSlice.actions;
+  let {addToCart} = cartSlice.actions;
+
 
   const handleAddToCart = (product) => {
     // if product IS NOT in cart, add it to cart
     if (!cartState.items.find(item => item._id === product._id)) {
-      dispatch(addItemToCart(product._id));  
+      dispatch(addItemToCart(product._id))
+      .then(dispatch(addToCart(product)));  
     } 
     // otherwise, the product IS in the cart and we need to update the quantity of the item
     else {
-      dispatch(modifyCartItemQuantity(product, 1));
+      dispatch(modifyServerSideStock(product, 1));
     }
   }
 

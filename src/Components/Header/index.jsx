@@ -7,18 +7,17 @@ import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import { useDispatch, useSelector } from "react-redux";
+import cartSlice from "../../store/cart";
 
 function Header(props) {
 
   const cartState = useSelector(storefrontState => storefrontState.cart);
+  let {toggleShowCart} = cartSlice.actions
 
   const dispatch = useDispatch();
 
   const toggleCart = () => {
-    dispatch({
-      type: 'TOGGLE_CART',
-      payload: !cartState.showCart
-    })
+    dispatch(toggleShowCart())
   }
 
   return(
