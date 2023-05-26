@@ -1,6 +1,6 @@
 import React from "react";
 import { useLocation } from "react-router";
-import { Card, CardActions, CardContent, CardHeader, Typography, CardMedia, Box, Button, TextField } from "@mui/material";
+import { Card, CardContent, CardHeader, Typography, Box, Button, TextField } from "@mui/material";
 
 import { DatePicker } from "@mui/x-date-pickers";
 import { LocalizationProvider } from "@mui/x-date-pickers";
@@ -34,53 +34,73 @@ function ShoppingCart() {
         </Box>
         <Box sx={{marginTop: '2rem'}}>
           <Typography variant="h5" sx={{marginBottom: '1rem'}}>Customer Info</Typography>
-          <Box >
             <form>
-              <Box sx={{display: 'flex'}}>
-                <TextField
-                  id="outlined"
-                  label='Full Name'
-                />
-                <TextField
-                  id="outlined"
-                  label='Street Address'
-                />
-                <TextField
-                  id="outlined"
-                  label='City'
-                />
-                <TextField
-                  id="outlined"
-                  label='State'
-                />
-                <TextField
-                  id="outlined"
-                  type="number"
-                  label='Zip'
-                />                
-              </Box>
-              <Box>
-                <TextField
-                  id="outlined"
-                  type="number"
-                  label='Card Number'
-                />
-                <LocalizationProvider dateAdapter={AdapterDayjs}>
-                  <DatePicker />                
-                </LocalizationProvider>
-                <TextField
-                  id="outlined"
-                  type="number"
-                  label='CVV'
-                />   
-              </Box>          
-            </form>            
-          </Box>
+              <Box sx={{display: 'flex', justifyContent: 'space-around'}}>
+                <Box sx={{display: 'flex', flexDirection: 'column', justifyContent: 'space-between'}} >
+                  <div>
+                  <TextField
+                    id="outlined"
+                    label='First Name'
+                  />
+                  <TextField
+                    id="outlined"
+                    label='Last Name'
+                  />                    
+                  </div>
+                  <TextField
+                    id="outlined"
+                    label='Street Address'
+                  /> 
+                  <TextField
+                    id="outlined"
+                    label='City'
+                  />
+                  <TextField
+                    id="outlined"
+                    
+                    label='State'
+                  />
+                  <TextField
+                    id="outlined"
+                    type="number"
+                    label='Zip'
+                  />                
+                </Box>
+                <Box sx={{display: 'flex', flexDirection: 'column', justifyContent: 'space-between'}}>
+                  <Box sx={{display: 'flex', flexDirection: 'column'}}>
+                    <TextField
+                      id="outlined"
+                      type="number"
+                      label='Card Number'
+                    />
+                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                      <DatePicker />                
+                    </LocalizationProvider>
+                    <TextField
+                      id="outlined"
+                      type="number"
+                      label='CVV'
+                    />                     
+                  </Box>
 
+                  <Box sx={{alignSelf: 'center'}}>
+                    <Button 
+                      variant="contained" 
+                      // type="submit" 
+                      onClick={(event) => {
+                        event.preventDefault();
+                        alert('Thank you for your purchase!');
+                      }}
+                    >
+                      Submit Order
+                    </Button>               
+                  </Box>   
+                </Box>
+              </Box>
+            </form>            
         </Box>        
       </CardContent>
-      // add the mock-form
-      // add notification on submit / 'purchase' / 'confirm order'    
+
     </Card>
 
   )
