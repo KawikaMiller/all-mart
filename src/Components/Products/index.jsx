@@ -1,11 +1,13 @@
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { Card, CardActions, CardContent, CardHeader, Typography, CardMedia, Container, Button } from "@mui/material";
-import { addItemToCart, fetchProducts} from "../../store/products";
-import { modifyCartItemQuantity } from "../../store/cart";
 import { Link } from "react-router-dom";
-import ProductDetails from "../ProductDetails";
+
+import { Card, CardActions, CardContent, CardHeader, Typography, CardMedia, Container, Button } from "@mui/material";
+
+import { modifyCartItemQuantity } from "../../store/cart";
+import productsSlice from "../../store/products";
+import { addItemToCart, fetchProductsFromServer } from "../../store/products";
 
 function Products() {
 
@@ -13,6 +15,8 @@ function Products() {
   const categoryState = useSelector(storefrontState => storefrontState.categories);
   const cartState = useSelector(storefrontState => storefrontState.cart);
   const dispatch = useDispatch();
+
+  let {setAllProducts} = productsSlice.actions
 
   const handleAddToCart = (product) => {
     // if product IS NOT in cart, add it to cart
@@ -27,21 +31,23 @@ function Products() {
 
   // fetches product data when component mounts (when page loads)
   useEffect(() => {
-    dispatch(fetchProducts())
+    dispatch(fetchProductsFromServer())
+    .then(response => dispatch(setAllProducts(response.results)));
   },
   // eslint-disable-next-line 
   [])
 
   // fetches product data from the server any time our cart is modified so that the state stays in sync with whats on the server
   useEffect(() => {
-    dispatch(fetchProducts());
+    dispatch(fetchProductsFromServer())
+    .then(results => dispatch(setAllProducts(results.results)));
   }, 
   // eslint-disable-next-line
   [cartState])
 
   return(
-    <Container key='productsContainer' id='productsContainer'>
     
+    <Container key='productsContainer' id='productsContainer'>
     {categoryState.activeCategory.name ?
       // displays products only if they match the active category
       productState.allProducts.map(product => {

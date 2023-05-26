@@ -17,7 +17,7 @@ describe('Testing Header component...', () => {
       </Provider>
     )
 
-    expect(screen.getByText('Pet Store')).toBeVisible()
+    expect(screen.getByText('Belethors General Goods')).toBeVisible()
     expect(screen.getByText('Cart (0)')).toBeVisible()
   })
 

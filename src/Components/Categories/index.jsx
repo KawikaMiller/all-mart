@@ -1,28 +1,25 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Container, Paper, Typography } from "@mui/material";
-import { fetchCategories } from "../../store/categories";
+import categoriesSlice, { fetchCategories } from "../../store/categories";
 
 function Categories (props) {
 
   const categories = useSelector(storefrontState => storefrontState.categories);
   const dispatch = useDispatch();
 
+  let { setAllCategories, setActiveCategory, clearActiveCategory } = categoriesSlice.actions;
+
+  // clears active category if the active category is clicked on, otherwise sets an non-active category to the active category
   const handleClick = (event) => {
-    if (event.target.innerText === categories.activeCategory.name) {
-      dispatch({
-        type: 'CLEAR_ACTIVECATEGORY',
-        payload: ''
-      })
+    if (event.target.innerText.toLowerCase() === categories.activeCategory.name.toLowerCase()) {
+      dispatch(clearActiveCategory({}))
       let categorySelectors = document.getElementsByClassName('activeCategory');
       for (let i = 0; i < categorySelectors.length; i++ ){
         categorySelectors[i].classList.remove('activeCategory')
       }
     } else {
-      dispatch({
-        type: 'SET_ACTIVECATEGORY',
-        payload: event.target.innerText
-      })
+      dispatch(setActiveCategory(event.target.innerText))
       let categorySelectors = document.getElementsByClassName('activeCategory');
       for (let i = 0; i < categorySelectors.length; i++ ){
         categorySelectors[i].classList.remove('activeCategory')
@@ -34,6 +31,7 @@ function Categories (props) {
 
   useEffect(() => {
     dispatch(fetchCategories())
+    .then(response => dispatch(setAllCategories(response.results)))
   }, 
   // eslint-disable-next-line
   [])

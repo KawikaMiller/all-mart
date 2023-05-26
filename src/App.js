@@ -6,6 +6,7 @@ import Header from "./Components/Header";
 import Footer from "./Components/Footer";
 import Storefront from "./Components/Storefront";
 import ShoppingCart from "./Components/ShoppingCart";
+import { configureStore } from "@reduxjs/toolkit";
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
@@ -13,7 +14,8 @@ import { Container } from "@mui/material";
 import thunk from "redux-thunk";
 import ProductDetails from "./Components/ProductDetails";
 
-const storeFront = createStore(storefrontReducer, applyMiddleware(thunk));
+// const storeFront = createStore(storefrontReducer, applyMiddleware(thunk));
+let storeFront = configureStore({reducer: storefrontReducer})
 
 function App() {
   return (
