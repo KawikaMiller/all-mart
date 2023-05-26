@@ -1,13 +1,13 @@
-import categoryReducer from './categories';
-import productsReducer from './products';
-import cartReducer from './cart';
+import categoriesSlice from './categories';
+import cartSlice from './cart';
 import { combineReducers } from 'redux';
+import productsSlice from './products';
 
 
 const storefrontReducer = combineReducers({
-  categories: categoryReducer,
-  products: productsReducer,
-  cart: cartReducer,
+  categories: categoriesSlice.reducer,
+  products: productsSlice.reducer,
+  cart: cartSlice.reducer,
 })
 
 export default storefrontReducer;

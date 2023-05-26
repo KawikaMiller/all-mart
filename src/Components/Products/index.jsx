@@ -1,9 +1,14 @@
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
+
 import { Card, CardActions, CardContent, CardHeader, Typography, CardMedia, Container, Button } from "@mui/material";
-import { addItemToCart, fetchProducts} from "../../store/products";
-import { modifyCartItemQuantity } from "../../store/cart";
+
+import productsSlice from "../../store/products";
+import cartSlice from "../../store/cart";
+import { modifyServerSideStock } from "../../store/cart";
+import { addItemToCart, fetchProductsFromServer } from "../../store/products";
 
 function Products() {
 
@@ -12,34 +17,41 @@ function Products() {
   const cartState = useSelector(storefrontState => storefrontState.cart);
   const dispatch = useDispatch();
 
+  let {setAllProducts} = productsSlice.actions;
+  let {addToCart} = cartSlice.actions;
+
+
   const handleAddToCart = (product) => {
     // if product IS NOT in cart, add it to cart
     if (!cartState.items.find(item => item._id === product._id)) {
-      dispatch(addItemToCart(product._id));  
+      dispatch(addItemToCart(product._id))
+      .then(dispatch(addToCart(product)));  
     } 
     // otherwise, the product IS in the cart and we need to update the quantity of the item
     else {
-      dispatch(modifyCartItemQuantity(product, 1));
+      dispatch(modifyServerSideStock(product, 1));
     }
   }
 
   // fetches product data when component mounts (when page loads)
   useEffect(() => {
-    dispatch(fetchProducts())
+    dispatch(fetchProductsFromServer())
+    .then(response => dispatch(setAllProducts(response.results)));
   },
   // eslint-disable-next-line 
   [])
 
   // fetches product data from the server any time our cart is modified so that the state stays in sync with whats on the server
   useEffect(() => {
-    dispatch(fetchProducts());
+    dispatch(fetchProductsFromServer())
+    .then(results => dispatch(setAllProducts(results.results)));
   }, 
   // eslint-disable-next-line
   [cartState])
 
   return(
-    <Container key='productsContainer' id='productsContainer'>
     
+    <Container key='productsContainer' id='productsContainer'>
     {categoryState.activeCategory.name ?
       // displays products only if they match the active category
       productState.allProducts.map(product => {
@@ -61,13 +73,22 @@ function Products() {
               </Typography>
             </CardContent>
             <CardActions>
-              {product.inStock > 0 ? 
-                  <Button variant="contained" onClick={() => handleAddToCart(product)}>
-                    Add To Cart
-                  </Button>                
-                : 
-                  <Button disabled variant="contained">Out of Stock</Button>
+              {product.inStock > 0 ?
+                <Button variant="contained" onClick={() => handleAddToCart(product)}>
+                  Add To Cart
+                </Button>
+              : 
+                <Button disabled variant="contained">Out of Stock</Button>
               }
+              <Button variant='contained'>
+                <Link 
+                  to={`/products/${product?._id}`} 
+                  style={{textDecoration: 'none'}}
+                  state={{product: product}}
+                >
+                  Details
+                </Link>
+              </Button>
             </CardActions>
           </Card>   
 
@@ -93,13 +114,22 @@ function Products() {
             </Typography>
           </CardContent>
           <CardActions>
-            {product.inStock > 0 ? 
-                <Button variant="contained" onClick={() => handleAddToCart(product)}>
-                  Add To Cart
-                </Button>                
-              : 
-                <Button disabled variant="contained">Out of Stock</Button>
+            {product.inStock > 0 ?
+              <Button variant="contained" onClick={() => handleAddToCart(product)}>
+                Add To Cart
+              </Button>
+            : 
+              <Button disabled variant="contained">Out of Stock</Button>
             }
+            <Button variant='contained'>
+              <Link 
+                to={`/products/${product?._id}`} 
+                style={{textDecoration: 'none'}}
+                state={{product: product}}
+              >
+                Details
+              </Link>
+            </Button>
           </CardActions>
         </Card>
       })}
@@ -109,3 +139,4 @@ function Products() {
 }
 
 export default Products;
+// export { handleAddToCart }
