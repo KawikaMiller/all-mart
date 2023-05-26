@@ -1,13 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialCartState = {
-  items: [
-
-  ],
-  total: 0,
-  showCart: false,
-}
-
 export const reStockServer = (product) => async () => {
   // find product on server side
   let response = await fetch(`https://api-js401.herokuapp.com/api/v1/products/${product._id}`);
