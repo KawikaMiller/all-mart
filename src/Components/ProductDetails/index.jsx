@@ -54,8 +54,8 @@ function ProductDetails(props) {
         </CardActions>
       </Card>
       <Box sx={{width: '45%'}}>
-        <p>Reviews: </p>
-        <p>Related Products: </p>
+        <p>Reviews: </p> {/* import Rating from Material UI */}
+        <p>Related Products: </p> {/* use cards? accordion? */}
       </Box>       
     </div>
    
