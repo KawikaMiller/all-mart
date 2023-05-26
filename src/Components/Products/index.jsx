@@ -74,23 +74,21 @@ function Products() {
             </CardContent>
             <CardActions>
               {product.inStock > 0 ?
-                  <>
-                    <Button variant="contained" onClick={() => handleAddToCart(product)}>
-                      Add To Cart
-                    </Button>
-                    <Button variant='contained'>
-                      <Link 
-                        to={`/products/${product?._id}`} 
-                        style={{textDecoration: 'none'}}
-                        state={{product: product}}
-                      >
-                        Details
-                      </Link>
-                    </Button>                      
-                  </> 
-                : 
-                  <Button disabled variant="contained">Out of Stock</Button>
+                <Button variant="contained" onClick={() => handleAddToCart(product)}>
+                  Add To Cart
+                </Button>
+              : 
+                <Button disabled variant="contained">Out of Stock</Button>
               }
+              <Button variant='contained'>
+                <Link 
+                  to={`/products/${product?._id}`} 
+                  style={{textDecoration: 'none'}}
+                  state={{product: product}}
+                >
+                  Details
+                </Link>
+              </Button>
             </CardActions>
           </Card>   
 
@@ -117,24 +115,21 @@ function Products() {
           </CardContent>
           <CardActions>
             {product.inStock > 0 ?
-              <>
-                <Button variant="contained" onClick={() => handleAddToCart(product)}>
-                  Add To Cart
-                </Button>
-                <Button variant='contained'>
-                  <Link 
-                    to={`/products/${product?._id}`} 
-                    style={{textDecoration: 'none'}}
-                    state={{product: product}}
-                  >
-                    Details
-                  </Link>
-                </Button>                
-              </> 
-              
-              : 
-                <Button disabled variant="contained">Out of Stock</Button>
+              <Button variant="contained" onClick={() => handleAddToCart(product)}>
+                Add To Cart
+              </Button>
+            : 
+              <Button disabled variant="contained">Out of Stock</Button>
             }
+            <Button variant='contained'>
+              <Link 
+                to={`/products/${product?._id}`} 
+                style={{textDecoration: 'none'}}
+                state={{product: product}}
+              >
+                Details
+              </Link>
+            </Button>
           </CardActions>
         </Card>
       })}
@@ -144,3 +139,4 @@ function Products() {
 }
 
 export default Products;
+// export { handleAddToCart }
