@@ -1,4 +1,4 @@
-# ToDo App
+# Storefront App
 
 A simple storefront app with a focus on React & Redux. The focus of this project is to deepen my understanding of Redux and global state management via reducers & `combineReducers`.
 
