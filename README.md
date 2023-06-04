@@ -17,11 +17,11 @@ The user should NOT be able to add items to the cart if they are out of stock.
 ![UML](./UML_AppState.JPG)
 
 ## Built With / Learning Focus
-React
-Redux
+- React
+- Redux
   - Global State Management
   - `combineReducers()`
-Material UI
+- Material UI
 
 ## Getting Started
 If running locally, you will have to run npm install to install all of the required dependencies and then run npm start to open the app.
