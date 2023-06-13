@@ -2,7 +2,7 @@
 
 A simple storefront app with a focus on React & Redux. The focus of this project is to deepen my understanding of Redux and global state management via reducers & `combineReducers`.
 
-[Deployed App](kmdev-storefront.netlify.app)
+[Deployed App](https://www.kmdev-storefront.netlify.app)
 
 ## Problem Domain
 Create an app that mocks an e-commerce storefront.
