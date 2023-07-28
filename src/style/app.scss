@@ -78,6 +78,20 @@ main {
   float: right;
 }
 
+.product-card{
+  background: linear-gradient($AliceBlue, $IndianRed);
+  border: 2px solid $Seasalt;
+}
+
+// .MuiCardHeader-content{
+//   display: flex;
+//   justify-content: space-between;
+// }
+
 .product-buttons{
-  justify-content: space-evenly;
+  justify-content: space-around;
+
+  button{
+    // background-color: $IndianRed;
+  }
 }

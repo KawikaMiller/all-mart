@@ -65,7 +65,7 @@ function Products() {
         
         if(product.category === categoryState.activeCategory.name){
 
-          return <Card key={`${product.name}_card`} sx={{width: 300, height: 300, margin: '1rem'}}>
+          return <Card key={`${product.name}_card`} sx={{width: 300, height: 300, margin: '1rem'}} className="product-card">
             <CardHeader 
               title={product.name}
               subheader={`$${product.price}`}
@@ -107,20 +107,20 @@ function Products() {
     : 
       // displays all products when there is no active category
       productState.allProducts.map(product => {
-        return <Card key={`${product.name}_card`} sx={{width: 300, height: 300, margin: '1rem'}}>
+        return <Card key={`${product.name}_card`} sx={{width: 300, height: 'auto', margin: '1rem'}} className="product-card">
           <CardHeader 
-            title={product.name}
+            title={product.name} 
             subheader={`$${product.price}`}
           />
           <CardMedia
-            sx={{height: 100}} 
+            sx={{height: 200, margin: '1rem'}} 
             image='https://placehold.co/200.png'
           />
-          <CardContent>
+          {/* <CardContent>
             <Typography variant="body2">
               {product.description}
             </Typography>
-          </CardContent>
+          </CardContent> */}
           <CardActions className="product-buttons">
             {product.inStock > 0 ?
               <Button variant="contained" onClick={() => handleAddToCart(product)}>
@@ -130,7 +130,7 @@ function Products() {
             : 
               <Button disabled variant="contained">Out of Stock</Button>
             }
-            <Button variant='contained'>
+            <Button variant='contained' color='info'>
               <Link 
                 to={`/products/${product?._id}`} 
                 style={{textDecoration: 'none'}}
