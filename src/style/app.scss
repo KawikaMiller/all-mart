@@ -1,0 +1,83 @@
+$Seasalt: #FAFAFA;
+$AliceBlue: #E3F2FD;
+$IndianRed: #DB5461;
+$DimGray: #686963;
+$BattleshipGrey: #798681;
+$CambridgeBlue: #8AA29E;
+$heightHeaderFooter: 80px;
+
+@import url('./reset.scss');
+
+@import url('https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Belanosima&display=swap');
+
+:root{
+  span, button, div,
+  p, h1, h2, h3, h4, h5, h6{
+    font-family: 'Belanosima';    
+  }
+}
+
+html, body {
+  background: linear-gradient($BattleshipGrey, $DimGray);
+  color: rgb(255, 255, 255);
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+span{
+  color: $IndianRed;
+}
+
+h4{
+  font-family: 'Luckiest Guy';
+}
+
+header {
+  height: $heightHeaderFooter;
+  background-color: $IndianRed !important;
+  margin-bottom: 3rem;
+}
+
+footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: $heightHeaderFooter;
+  background-color: rgba(0, 0, 0, 25%);
+}
+
+main {
+  margin: 0;
+  min-height: calc(100vh - calc($heightHeaderFooter * 2));
+}
+
+#categories-header{
+  text-align: center;
+  font-size: 2.5rem;
+}
+
+#categoryContainer {
+  display: flex;
+  // flex-direction: column;
+  justify-content: center;
+  flex-wrap: wrap;
+
+  > * {
+    width: 125px;
+    padding: 1.5rem;
+    margin: 1rem;
+    text-align: center;
+  }
+}
+
+#productsContainer {
+  float: right;
+}
+
+.product-buttons{
+  justify-content: space-evenly;
+}

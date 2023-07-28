@@ -12,6 +12,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Container } from "@mui/material";
 import ProductDetails from "./Components/ProductDetails";
 
+import './style/app.scss';
+
 // const storeFront = createStore(storefrontReducer, applyMiddleware(thunk));
 let storeFront = configureStore({reducer: storefrontReducer})
 

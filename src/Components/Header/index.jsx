@@ -6,6 +6,7 @@ import Toolbar from '@mui/material/Toolbar';
 import Button from '@mui/material/Button';
 import { useDispatch, useSelector } from "react-redux";
 import cartSlice from "../../store/cart";
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
 function Header(props) {
 
@@ -19,16 +20,21 @@ function Header(props) {
   }
 
   return(
-    <Box component='header' id='storeHeader' sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
+    // <Box component='header' id='storeHeader' sx={{ flexGrow: 1 }}>
+      <AppBar position="static" sx={{justifyContent: 'center'}}>
         <Toolbar>
-          <Typography variant="h4" component="div" sx={{ flexGrow: 1 }}>
-            Belethors General Goods
+          <Typography variant="h2" sx={{ flexGrow: 1, justifySelf: 'center' }}>
+            All-Mart
           </Typography>
-          <Button color="inherit" onClick={toggleCart}>{`Cart (${cartState.items.reduce((acc, current) => (acc + current.quantity), 0)})`}</Button>
+          <Button 
+            color="inherit" 
+            onClick={toggleCart}>
+              <ShoppingCartIcon />
+              {`Cart (${cartState.items.reduce((acc, current) => (acc + current.quantity), 0)})`}
+          </Button>
         </Toolbar>
       </AppBar>      
-    </Box>
+    // </Box>
   )
 
 }

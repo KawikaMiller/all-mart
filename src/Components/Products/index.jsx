@@ -10,6 +10,8 @@ import cartSlice from "../../store/cart";
 import { modifyServerSideStock } from "../../store/cart";
 import { addItemToCart, fetchProductsFromServer } from "../../store/products";
 
+import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
+
 function Products() {
 
   const productState = useSelector(storefrontState => storefrontState.products);
@@ -18,7 +20,7 @@ function Products() {
   const dispatch = useDispatch();
 
   let {setAllProducts} = productsSlice.actions;
-  let {addToCart} = cartSlice.actions;
+  let {addToCart, modifyItemQuantity} = cartSlice.actions;
 
 
   const handleAddToCart = (product) => {
@@ -29,7 +31,12 @@ function Products() {
     } 
     // otherwise, the product IS in the cart and we need to update the quantity of the item
     else {
-      dispatch(modifyServerSideStock(product, 1));
+      console.log('add to cart again')
+      dispatch(modifyServerSideStock(product, 1))
+      .then(dispatch(modifyItemQuantity({
+        product,
+        quantityChange: 1
+      })));
     }
   }
 
@@ -72,9 +79,10 @@ function Products() {
                 {product.description}
               </Typography>
             </CardContent>
-            <CardActions>
+            <CardActions className="product-buttons">
               {product.inStock > 0 ?
                 <Button variant="contained" onClick={() => handleAddToCart(product)}>
+                  <AddShoppingCartIcon />
                   Add To Cart
                 </Button>
               : 
@@ -113,9 +121,10 @@ function Products() {
               {product.description}
             </Typography>
           </CardContent>
-          <CardActions>
+          <CardActions className="product-buttons">
             {product.inStock > 0 ?
               <Button variant="contained" onClick={() => handleAddToCart(product)}>
+                <AddShoppingCartIcon />
                 Add To Cart
               </Button>
             : 

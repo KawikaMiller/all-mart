@@ -39,7 +39,7 @@ function Categories (props) {
   return (
     categories.categories ? 
     <>
-      <Typography>Categories:</Typography>
+      <Typography id='categories-header'>Categories:</Typography>
       <Container id='categoryContainer' data-testid='categoryContainer'>
         {categories.categories.map(category => {
           return (
