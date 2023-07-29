@@ -38,7 +38,28 @@ h4{
 header {
   height: $heightHeaderFooter;
   background-color: $IndianRed !important;
-  margin-bottom: 3rem;
+  // margin-bottom: 3rem;
+}
+
+fieldset{
+  border-color: white !important;
+}
+
+#banner{
+  background-size: cover;
+  background-position: center;
+  width: 100vw;
+  height: calc(100vh - $heightHeaderFooter);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: white;
+
+  h1 {
+    font-size: 12rem;
+  }
 }
 
 footer {

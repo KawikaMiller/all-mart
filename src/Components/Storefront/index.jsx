@@ -9,7 +9,7 @@ function Storefront () {
     <div id='storefront-wrapper'>
       <Categories/>
       <hr />
-      <Products />
+      <Products/>
       <SimpleCart />      
     </div>
   )

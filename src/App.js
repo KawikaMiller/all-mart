@@ -13,6 +13,7 @@ import { Container } from "@mui/material";
 import ProductDetails from "./Components/ProductDetails";
 
 import './style/app.scss';
+import Banner from "./Components/Banner";
 
 // const storeFront = createStore(storefrontReducer, applyMiddleware(thunk));
 let storeFront = configureStore({reducer: storefrontReducer})
@@ -21,6 +22,7 @@ function App() {
   return (
     <Provider store={storeFront}>
       <Header />
+      <Banner />
       <BrowserRouter>
         <Container component='main' id='mainContainer'>
           <Routes>
