@@ -9,19 +9,3 @@
   --heightHeaderFooter: 80px;
 }
 
-.categorySelector {
-  cursor: pointer;
-}
-
-
-
-.activeCategory {
-  border: 2px solid red;
-  /* background-color: blue; */
-}
-
-#productsContainer {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-}

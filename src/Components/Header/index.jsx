@@ -1,17 +1,12 @@
 import React from "react";
-import { Typography } from "@mui/material";
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import Button from '@mui/material/Button';
+import { Typography, AppBar, Toolbar, Button, OutlinedInput, InputAdornment } from "@mui/material";
+
+import { ShoppingCart, AccountCircle, Search, Store, LocalShipping, DirectionsCar, ShoppingBag } from '@mui/icons-material';
+
 import { useDispatch, useSelector } from "react-redux";
 import cartSlice from "../../store/cart";
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import SearchIcon from '@mui/icons-material/Search';
-import OutlinedInput from "@mui/material/OutlinedInput";
-import InputAdornment from "@mui/material/InputAdornment";
 import Categories from "../Categories";
+import { Link } from "react-router-dom";
 
 function Header(props) {
 
@@ -29,7 +24,7 @@ function Header(props) {
 
           <div style={{display: 'flex', alignItems: 'center', justifyContent: 'flex-start', width: '60%'}} >
             <Typography variant="h4" sx={{justifySelf: 'center' }}>
-              All-Mart
+              <a href="/" style={{textDecoration: 'none', color: 'white'}}>All-Mart</a>
             </Typography>
             <div style={{display: 'flex', width: '50%', justifyContent: 'space-evenly'}}>
               <Typography>Products</Typography>
@@ -44,9 +39,9 @@ function Header(props) {
               size="small"
               placeholder="Search"
               sx={{color: 'white', borderRadius: '20px'}}
-              startAdornment={
-                <InputAdornment>
-                  <SearchIcon sx={{color: 'white'}}/>
+              endAdornment={
+                <InputAdornment position="start">
+                  <Search sx={{color: 'white'}}/>
                 </InputAdornment>
               }
             />
@@ -54,23 +49,43 @@ function Header(props) {
             <Button
               color='inherit'
             >
-              <AccountCircleIcon />
+              <AccountCircle />
             </Button>
 
             <Button 
               color="inherit" 
               onClick={toggleCart}
             >
-              <ShoppingCartIcon />
+              <ShoppingCart />
               {`(${cartState.items.reduce((acc, current) => (acc + current.quantity), 0)})`}
             </Button>
           </div>
 
         </Toolbar>
+
         <div>
           <hr/>
         </div>
-        <Categories />
+        
+        <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', margin: '0 1rem'}}>
+
+          <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '17.5%'}}>
+
+            <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center',}}>
+              <DirectionsCar style={{borderRadius: '50%', border: '1px solid white', padding: '0.25rem'}}/>
+              <Typography>Pick-Up</Typography>              
+            </div>
+            |
+            <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center',}}>
+              <Store style={{borderRadius: '50%', border: '1px solid white', padding: '0.25rem'}}/>
+              <Typography variant='subtitle1'>Store Location</Typography>              
+            </div>
+
+          </div>
+          
+          <Categories />
+
+        </div>
       </AppBar>      
   )
 

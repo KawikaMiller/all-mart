@@ -3,6 +3,7 @@ import { Provider } from "react-redux";
 import storefrontReducer from "./store";
 import Header from "./Components/Header";
 import Footer from "./Components/Footer";
+import Products from "./Components/Products";
 import Storefront from "./Components/Storefront";
 import ShoppingCart from "./Components/ShoppingCart";
 import { configureStore } from "@reduxjs/toolkit";
@@ -22,11 +23,14 @@ function App() {
   return (
     <Provider store={storeFront}>
       <Header />
-      <Banner />
       <BrowserRouter>
+        <Routes>
+          <Route path='/' element={<Banner />} />
+        </Routes>
         <Container component='main' id='mainContainer'>
           <Routes>
-            <Route path="/" element={<Storefront />} />
+            <Route path="/" element={<Products />} />
+            <Route path="/products" element={<Products />} />
             <Route path='/products/:id' element={<ProductDetails />} />
             <Route path="/cart" element={<ShoppingCart />} />
           </Routes>
