@@ -1,18 +1,17 @@
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
 import { useLocation } from "react-router";
 
-import { Card, CardActions, CardContent, CardHeader, Typography, CardMedia, Container, Button } from "@mui/material";
+import { Container } from "@mui/material";
 
 import productsSlice from "../../store/products";
 import cartSlice from "../../store/cart";
 import { modifyServerSideStock } from "../../store/cart";
 import { addItemToCart, fetchProductsFromServer } from "../../store/products";
 
-import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import categoriesSlice from "../../store/categories";
+import ProductCard from "../ProductCard";
 
 function Products() {
 
@@ -63,93 +62,22 @@ function Products() {
   return(
     
     <Container key='productsContainer' id='productsContainer'>
+      {/* If a product category has been selected, only display products within that category */}
       {categoryState.activeCategory?.name ?
-        // displays products only if they match the active category
+
         productState.allProducts.map(product => {
-          
           if(product.category === categoryState.activeCategory.name){
-
-            return <Card key={`${product.name}_card`} sx={{width: 300, height: 300, margin: '1rem'}} className="product-card">
-              <CardHeader 
-                title={product.name}
-                subheader={`$${product.price}`}
-              />
-              <CardMedia
-                sx={{height: 100}} 
-                image='https://placehold.co/200.png'
-              />
-              <CardContent>
-                <Typography variant="body2">
-                  {product.description}
-                </Typography>
-              </CardContent>
-              <CardActions className="product-buttons">
-                {product.inStock > 0 ?
-                  <Button variant="contained" onClick={() => handleAddToCart(product)}>
-                    <AddShoppingCartIcon />
-                    Add To Cart
-                  </Button>
-                : 
-                  <Button disabled variant="contained">Out of Stock</Button>
-                }
-                <Button variant='contained'>
-                  <Link 
-                    to={`/products/${product?._id}`} 
-                    style={{textDecoration: 'none'}}
-                    state={{product: product}}
-                  >
-                    Details
-                  </Link>
-                </Button>
-              </CardActions>
-            </Card>   
-
-          }
-          return null;
+            return <ProductCard product={product} handleAddToCart={handleAddToCart}/>
+          } else return null;
         })   
-
       : 
-        // displays all products when there is no active category
+        // If no product category is selected, display all products
         productState.allProducts.map(product => {
-          return <Card key={`${product.name}_card`} sx={{width: 300, height: 'auto', margin: '1rem'}} className="product-card">
-            <CardHeader 
-              title={product.name} 
-              subheader={`$${product.price}`}
-            />
-            <CardMedia
-              sx={{height: 200, margin: '1rem'}} 
-              image='https://placehold.co/200.png'
-            />
-            {/* <CardContent>
-              <Typography variant="body2">
-                {product.description}
-              </Typography>
-            </CardContent> */}
-            <CardActions className="product-buttons">
-              {product.inStock > 0 ?
-                <Button variant="contained" onClick={() => handleAddToCart(product)}>
-                  <AddShoppingCartIcon />
-                  Add To Cart
-                </Button>
-              : 
-                <Button disabled variant="contained">Out of Stock</Button>
-              }
-              <Button variant='contained' color='info'>
-                <Link 
-                  to={`/products/${product?._id}`} 
-                  style={{textDecoration: 'none'}}
-                  state={{product: product}}
-                >
-                  Details
-                </Link>
-              </Button>
-            </CardActions>
-          </Card>
-        })}
+          return <ProductCard product={product} handleAddToCart={handleAddToCart} />
+        })
+      }
     </Container>
   )
-
 }
 
 export default Products;
-// export { handleAddToCart }
