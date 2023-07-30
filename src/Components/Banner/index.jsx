@@ -14,7 +14,7 @@ function Banner() {
         Everything, Everywhere, All at All-Mart
       </Typography>
       <hr />
-      <Button variant="contained" color="error" sx={{padding: '1rem', width: '25%', color: 'white', border: '2px solid white'}} href="./products">
+      <Button variant="contained" color="error" sx={{padding: '1rem', width: '25%', color: 'white', border: '2px solid white'}} href="./categories">
         <Typography variant="h6">
           Shop Now
         </Typography>

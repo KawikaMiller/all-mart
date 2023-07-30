@@ -117,8 +117,61 @@ footer {
 }
 
 
-.categorySelector {
+.categorySelector, .categoryPageSelector {
   cursor: pointer;
+}
+
+#categoriesPage{
+  margin: 1rem 0;
+}
+
+#categoriesPageHeader{
+  text-align: center;
+}
+
+.categoryPageSelector{
+  display: flex;
+  align-items: center;
+  height: 8rem;
+  padding: 1rem;
+  margin: 1rem;
+  font-size: 3rem;
+  color: $IndianRed !important;
+  border: 3px solid $IndianRed;
+
+  &.food{
+    background: linear-gradient(to right, white, white 25%, transparent 26%, transparent), url('../assets/produce.jpeg');
+    background-size: 100% 500%;
+    background-position-x: center;
+    background-position-y: 62.5%;
+  }
+
+  &.electronics{
+    background: linear-gradient(to right, white, white 25%, transparent 26%, transparent), url('../assets/electronics.webp');
+    background-size: 100% 500%;
+    // background-position: center;
+    background-position-x: center;
+    background-position-y: 40%;
+  }
+
+  &.games{
+    background: linear-gradient(to right, white, white 25%, transparent 26%, transparent), url('../assets/games.webp');
+    background-size: 100%;
+    // background-position: center;
+    background-position-x: center;
+    background-position-y: 30%;
+  }
+
+  &.weapons{
+    background: linear-gradient(to right, white, white 25%, transparent 26%, transparent), url('../assets/weapons.jpeg');
+    background-size: 100%;
+    background-position-x: center;
+    background-position-y: 23.5%;
+  }
+
+  &:nth-child(even){
+    // justify-content: flex-end;
+  }
 }
 
 #productsContainer {

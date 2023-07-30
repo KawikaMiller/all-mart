@@ -15,6 +15,7 @@ import ProductDetails from "./Components/ProductDetails";
 
 import './style/app.scss';
 import Banner from "./Components/Banner";
+import CategoriesPage from "./Components/CategoriesPage";
 
 // const storeFront = createStore(storefrontReducer, applyMiddleware(thunk));
 let storeFront = configureStore({reducer: storefrontReducer})
@@ -30,6 +31,7 @@ function App() {
         <Container component='main' id='mainContainer'>
           <Routes>
             <Route path="/" element={<Products />} />
+            <Route path="/categories" element={<CategoriesPage />} />
             <Route path="/products" element={<Products />} />
             <Route path='/products/:id' element={<ProductDetails />} />
             <Route path="/cart" element={<ShoppingCart />} />

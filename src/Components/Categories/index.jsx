@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Container, Paper, Typography } from "@mui/material";
+import { Paper } from "@mui/material";
 import categoriesSlice, { fetchCategories } from "../../store/categories";
 
 function Categories (props) {
