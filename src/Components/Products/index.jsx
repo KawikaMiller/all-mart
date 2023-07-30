@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import { useLocation } from "react-router";
 
 import { Card, CardActions, CardContent, CardHeader, Typography, CardMedia, Container, Button } from "@mui/material";
 
@@ -11,15 +12,18 @@ import { modifyServerSideStock } from "../../store/cart";
 import { addItemToCart, fetchProductsFromServer } from "../../store/products";
 
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
+import categoriesSlice from "../../store/categories";
 
 function Products() {
 
   const productState = useSelector(storefrontState => storefrontState.products);
   const categoryState = useSelector(storefrontState => storefrontState.categories);
   const cartState = useSelector(storefrontState => storefrontState.cart);
+  const linkState = useLocation();
   const dispatch = useDispatch();
 
   let {setAllProducts} = productsSlice.actions;
+  let {setActiveCategory} = categoriesSlice.actions
   let {addToCart, modifyItemQuantity} = cartSlice.actions;
 
 
@@ -44,6 +48,10 @@ function Products() {
   useEffect(() => {
     dispatch(fetchProductsFromServer())
     .then(response => dispatch(setAllProducts(response.results)));
+
+    if(linkState.state?.category){
+      dispatch(setActiveCategory(linkState.state.category.name))
+    }
   }, []) // eslint-disable-line 
 
   // fetches product data from the server any time our cart is modified so that the state stays in sync with whats on the server
@@ -55,7 +63,7 @@ function Products() {
   return(
     
     <Container key='productsContainer' id='productsContainer'>
-      {categoryState.activeCategory.name ?
+      {categoryState.activeCategory?.name ?
         // displays products only if they match the active category
         productState.allProducts.map(product => {
           

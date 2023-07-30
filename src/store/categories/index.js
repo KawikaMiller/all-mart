@@ -16,7 +16,6 @@ const categoriesSlice = createSlice({
   reducers: {
     setActiveCategory(state, action){
       state.activeCategory = state.categories.find(category => category.name === action.payload.toLowerCase());
-      console.log('ACTIVE CATEGORY: ', state.activeCategory)
     },
     clearActiveCategory(state, action){
       state.activeCategory = action.payload

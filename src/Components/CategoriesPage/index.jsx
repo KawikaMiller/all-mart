@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Paper, Typography } from "@mui/material";
 import categoriesSlice, { fetchCategories } from "../../store/categories";
+import { Link } from "react-router-dom";
 
 function CategoriesPage(props){
 
@@ -33,11 +34,16 @@ function CategoriesPage(props){
           return (
             <Paper 
               key={`category_${category.name}`}
-              onClick={handleClick} 
+              // onClick={handleClick} 
               elevation={4} 
               className={`categoryPageSelector ${category.name}`}
             >
-              {category.name[0].toUpperCase() + category.name.slice(1)}
+              <Link
+                to={`../products`}
+                state={{category: category}}
+              >
+                {category.name[0].toUpperCase() + category.name.slice(1)}
+              </Link>
             </Paper>
           )
         })}
