@@ -7,8 +7,8 @@ function Storefront () {
 
   return(
     <div id='storefront-wrapper'>
-      <Categories/>
-      <hr />
+      {/* <Categories/> */}
+      {/* <hr /> */}
       <Products/>
       <SimpleCart />      
     </div>

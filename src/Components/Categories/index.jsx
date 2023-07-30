@@ -39,8 +39,8 @@ function Categories (props) {
   return (
     categories.categories ? 
     <div id='categories'>
-      <Typography id='categories-header'>Categories:</Typography>
-      <Container id='categoryContainer' data-testid='categoryContainer'>
+      {/* <Typography id='categories-header' variant="h4">Categories:</Typography> */}
+      <div id='categoryContainer' data-testid='categoryContainer'>
         {categories.categories.map(category => {
           return (
             <Paper 
@@ -54,7 +54,7 @@ function Categories (props) {
             </Paper>
           )
         })}
-      </Container>    
+      </div>    
     </div>
     : 
     null

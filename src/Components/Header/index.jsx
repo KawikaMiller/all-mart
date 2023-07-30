@@ -11,6 +11,7 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import SearchIcon from '@mui/icons-material/Search';
 import OutlinedInput from "@mui/material/OutlinedInput";
 import InputAdornment from "@mui/material/InputAdornment";
+import Categories from "../Categories";
 
 function Header(props) {
 
@@ -66,6 +67,10 @@ function Header(props) {
           </div>
 
         </Toolbar>
+        <div>
+          <hr/>
+        </div>
+        <Categories />
       </AppBar>      
   )
 
