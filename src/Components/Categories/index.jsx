@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 import { Paper } from "@mui/material";
 import categoriesSlice, { fetchCategories } from "../../store/categories";
 
@@ -39,19 +40,24 @@ function Categories (props) {
   return (
     categories.categories ? 
     <div id='categories'>
-      {/* <Typography id='categories-header' variant="h4">Categories:</Typography> */}
       <div id='categoryContainer' data-testid='categoryContainer'>
         {categories.categories.map(category => {
           return (
-            <Paper 
-              key={`paper_${category.name}`}
-              data-testid={`paper_${category.name}`} 
-              onClick={handleClick} 
-              elevation={4} 
-              className="categorySelector"
+            <Link
+            to={`../products/${category.name}`}
+            state={{category: category}}
+            style={{textDecoration: 'none'}}
             >
-              {category.name[0].toUpperCase() + category.name.slice(1)}
-            </Paper>
+              <Paper 
+                key={`paper_${category.name}`}
+                data-testid={`paper_${category.name}`} 
+                onClick={handleClick} 
+                elevation={4} 
+                className="categorySelector"
+                >
+                {category.name[0].toUpperCase() + category.name.slice(1)}
+              </Paper>
+            </Link>
           )
         })}
       </div>    

@@ -1,7 +1,7 @@
 import React from "react";
-import { Typography, AppBar, Toolbar, Button, OutlinedInput, InputAdornment } from "@mui/material";
+import { Typography, AppBar, Toolbar, Button, OutlinedInput, InputAdornment, Badge } from "@mui/material";
 
-import { ShoppingCart, AccountCircle, Search, Store, LocalShipping, DirectionsCar, ShoppingBag } from '@mui/icons-material';
+import { ShoppingCart, AccountCircle, Search, Store, LocalShipping, DirectionsCar, ShoppingBag, } from '@mui/icons-material';
 
 import { useDispatch, useSelector } from "react-redux";
 import cartSlice from "../../store/cart";
@@ -28,7 +28,7 @@ function Header(props) {
             </Typography>
             <div style={{display: 'flex', width: '50%', justifyContent: 'space-evenly'}}>
               <Typography>
-              <a href="./categories" style={{textDecoration: 'none', color: 'white'}}>Products</a>
+              <a href="../categories" style={{textDecoration: 'none', color: 'white'}}>Products</a>
               </Typography>
               <Typography>About</Typography>
               <Typography>On Sale</Typography>
@@ -58,8 +58,9 @@ function Header(props) {
               color="inherit" 
               onClick={toggleCart}
             >
-              <ShoppingCart />
-              {`(${cartState.items.reduce((acc, current) => (acc + current.quantity), 0)})`}
+              <Badge badgeContent={`${cartState.items.reduce((acc, current) => (acc + current.quantity), 0)}`}>
+                <ShoppingCart />
+              </Badge>
             </Button>
           </div>
 

@@ -23,8 +23,8 @@ let storeFront = configureStore({reducer: storefrontReducer})
 function App() {
   return (
     <Provider store={storeFront}>
-      <Header />
       <BrowserRouter>
+        <Header />
         <Routes>
           <Route path='/' element={<Banner />} />
         </Routes>
@@ -32,7 +32,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Products />} />
             <Route path="/categories" element={<CategoriesPage />} />
-            <Route path="/products" element={<Products />} />
+            <Route path="/products/:category" element={<Products />} />
             <Route path='/products/:id' element={<ProductDetails />} />
             <Route path="/cart" element={<ShoppingCart />} />
           </Routes>

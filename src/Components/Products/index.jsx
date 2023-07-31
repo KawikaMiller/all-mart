@@ -61,11 +61,11 @@ function Products() {
 
   return(
     <>
-      <div id='productsHeader'>
+      {/* <div id='productsHeader'>
         <Typography variant="h5" >
           {categoryState.activeCategory?.name ? categoryState.activeCategory?.name : 'All Products'}
         </Typography>
-      </div>
+      </div> */}
       <div key='productsContainer' id='productsContainer'>
         {/* If a product category has been selected, only display products within that category */}
         {categoryState.activeCategory?.name ?

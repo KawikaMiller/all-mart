@@ -25,7 +25,7 @@ function CategoriesPage(props){
         {categories.categories.map(category => {
           return (
             <Link
-              to={`../products`}
+              to={`../products/${category.name}`}
               state={{category: category}}
               style={{textDecoration: 'none'}}
             >

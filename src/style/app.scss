@@ -103,17 +103,18 @@ footer {
   flex-wrap: wrap;
   // margin: 0 1.5rem;
 
-  > * {
+  a > div{
+    background-color: $IndianRed !important;
+    color: white !important;
     width: 5rem;
-    padding: 0.125rem;
     margin: 0.5rem;
+    padding: 0.125rem;
     text-align: center;
-    background-color: transparent;
-    color: white;
 
     &:hover{
-      background-color: white !important;
-      color: $IndianRed !important;
+      border-color: transparent;
+      background-color: rgb(255, 0, 0) !important;
+      color: white !important;
     }
   }
   
@@ -175,10 +176,6 @@ footer {
     background-position-x: center;
     background-position-y: 23.5%;
   }
-
-  &:nth-child(even){
-    // justify-content: flex-end;
-  }
 }
 
 #productsContainer {
@@ -191,16 +188,18 @@ footer {
 
 #productsHeader{
   display: flex;
-  background-color: white;
-  color: $IndianRed;
+  // background-color: white;
+  color: white;
   justify-content: center;
-  box-shadow: 0 0 0 100vmax white;
+  // box-shadow: 0 0 0 100vmax white;
   clip-path: inset(0 -100vmax);
   text-transform: uppercase;
   position: sticky !important; 
   top: 118px;
   z-index: 99;
+  padding: 1rem;
   margin-bottom: 1rem;
+  border-bottom: 1px solid white;
 }
 
 .product-card{
