@@ -30,9 +30,16 @@ html, body {
 
 main{
   min-height: 100vh;
+  // margin: 5rem;
 }
 
-span{
+#mainContainer{
+  min-height: 100vh;
+  margin: 2rem;
+  margin-top: 0;
+}
+
+span.MuiCardHeader-title{
   color: $IndianRed;
 }
 
@@ -98,7 +105,7 @@ footer {
 
   > * {
     width: 5rem;
-    padding: 0.5rem;
+    padding: 0.125rem;
     margin: 0.5rem;
     text-align: center;
     background-color: transparent;
@@ -178,8 +185,22 @@ footer {
   height: inherit;
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: space-evenly;
   align-items: center;
+}
+
+#productsHeader{
+  display: flex;
+  background-color: white;
+  color: $IndianRed;
+  justify-content: center;
+  box-shadow: 0 0 0 100vmax white;
+  clip-path: inset(0 -100vmax);
+  text-transform: uppercase;
+  position: sticky !important; 
+  top: 118px;
+  z-index: 99;
+  margin-bottom: 1rem;
 }
 
 .product-card{
@@ -193,27 +214,22 @@ footer {
 .product-buttons{
   justify-content: space-around;
 
-  button{
-    background-color: $IndianRed;
-
-    a{
-      color: white;
-    }
-
-    &:hover{
-      color: $IndianRed;
-      background-color: white;
-
-      a{
-        color: $IndianRed;
-      }
-    }
-
-  }
 }
 
-#productsContainer {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+button{
+  background-color: $IndianRed !important;
+  
+  a{
+    color: white;
+  }
+
+  &:hover{
+    color: $IndianRed !important;
+    background-color: white !important;
+
+    a{
+      color: $IndianRed;
+    }
+  }
+
 }

@@ -27,7 +27,9 @@ function Header(props) {
               <a href="/" style={{textDecoration: 'none', color: 'white'}}>All-Mart</a>
             </Typography>
             <div style={{display: 'flex', width: '50%', justifyContent: 'space-evenly'}}>
-              <Typography>Products</Typography>
+              <Typography>
+              <a href="./categories" style={{textDecoration: 'none', color: 'white'}}>Products</a>
+              </Typography>
               <Typography>About</Typography>
               <Typography>On Sale</Typography>
             </div>
@@ -69,15 +71,15 @@ function Header(props) {
         
         <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', margin: '0 1rem'}}>
 
-          <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '17.5%'}}>
+          <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '20%'}}>
 
-            <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center',}}>
-              <DirectionsCar style={{borderRadius: '50%', border: '1px solid white', padding: '0.25rem'}}/>
+            <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+              <DirectionsCar />
               <Typography>Pick-Up</Typography>              
             </div>
             |
-            <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center',}}>
-              <Store style={{borderRadius: '50%', border: '1px solid white', padding: '0.25rem'}}/>
+            <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+              <Store />
               <Typography variant='subtitle1'>Store Location</Typography>              
             </div>
 

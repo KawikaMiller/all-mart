@@ -28,7 +28,7 @@ function App() {
         <Routes>
           <Route path='/' element={<Banner />} />
         </Routes>
-        <Container component='main' id='mainContainer'>
+        <div component='main' id='mainContainer'>
           <Routes>
             <Route path="/" element={<Products />} />
             <Route path="/categories" element={<CategoriesPage />} />
@@ -36,7 +36,7 @@ function App() {
             <Route path='/products/:id' element={<ProductDetails />} />
             <Route path="/cart" element={<ShoppingCart />} />
           </Routes>
-        </Container>      
+        </div>      
       </BrowserRouter>
       <Footer />      
     </Provider>

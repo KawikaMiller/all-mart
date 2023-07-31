@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { useLocation } from "react-router";
 
-import { Container } from "@mui/material";
+import { Container, Typography } from "@mui/material";
 
 import productsSlice from "../../store/products";
 import cartSlice from "../../store/cart";
@@ -60,23 +60,29 @@ function Products() {
   }, [cartState]) // eslint-disable-line
 
   return(
-    
-    <Container key='productsContainer' id='productsContainer'>
-      {/* If a product category has been selected, only display products within that category */}
-      {categoryState.activeCategory?.name ?
+    <>
+      <div id='productsHeader'>
+        <Typography variant="h5" >
+          {categoryState.activeCategory?.name ? categoryState.activeCategory?.name : 'All Products'}
+        </Typography>
+      </div>
+      <div key='productsContainer' id='productsContainer'>
+        {/* If a product category has been selected, only display products within that category */}
+        {categoryState.activeCategory?.name ?
 
-        productState.allProducts.map(product => {
-          if(product.category === categoryState.activeCategory.name){
-            return <ProductCard product={product} handleAddToCart={handleAddToCart}/>
-          } else return null;
-        })   
-      : 
-        // If no product category is selected, display all products
-        productState.allProducts.map(product => {
-          return <ProductCard product={product} handleAddToCart={handleAddToCart} />
-        })
-      }
-    </Container>
+          productState.allProducts.map(product => {
+            if(product.category === categoryState.activeCategory.name){
+              return <ProductCard product={product} handleAddToCart={handleAddToCart}/>
+            } else return null;
+          })   
+        : 
+          // If no product category is selected, display all products
+          productState.allProducts.map(product => {
+            return <ProductCard product={product} handleAddToCart={handleAddToCart} />
+          })
+        }
+      </div>
+    </>
   )
 }
 
