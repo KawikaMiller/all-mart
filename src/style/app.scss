@@ -231,5 +231,13 @@ button{
       color: $IndianRed;
     }
   }
+}
 
+.MuiCardActions-root{
+  padding: 1rem !important;
+}
+
+.MuiAccordion-root{
+  background-color: $IndianRed !important;
+  color: white !important;
 }
