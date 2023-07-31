@@ -31,7 +31,7 @@ function ProductCard({product, handleAddToCart}){
         }
         <Button variant='contained' className='product-card-button-details'>
           <Link 
-            to={`/products/${product?._id}`} 
+            to={`/product/${product._id}`} 
             style={{textDecoration: 'none'}}
             state={{product: product}}
           >

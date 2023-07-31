@@ -45,7 +45,7 @@ function ShoppingCart() {
           <Card sx={{margin: '0.5rem'}}>
             <CardContent sx={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
               <Typography variant="h4" >Total</Typography>
-              <Typography variant="h4">{`$${state.cart.items.reduce((acc, current) => {return acc + (current.price * current.quantity)}, 0)}`}</Typography>
+              <Typography variant="h4">{`$${state.cart.items.reduce((acc, current) => {return acc + (current.price * current.quantity)}, 0).toFixed(2)}`}</Typography>
             </CardContent>
           </Card>
         </Box>

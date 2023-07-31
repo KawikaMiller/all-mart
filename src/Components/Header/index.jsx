@@ -73,13 +73,13 @@ function Header(props) {
         
         <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', margin: '0 1rem'}}>
 
-          <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '20%'}}>
+          <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '15%'}}>
 
             <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
               <DirectionsCar />
               <Typography>Pick-Up</Typography>              
             </div>
-            |
+            
             <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
               <Store />
               <Typography variant='subtitle1'>Store Location</Typography>              
