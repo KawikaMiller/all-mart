@@ -10,6 +10,7 @@ import { addItemToCart, fetchProductsFromServer } from "../../store/products";
 
 import categoriesSlice from "../../store/categories";
 import ProductCard from "../ProductCard";
+import SimpleCart from "../SimpleCart";
 
 function Products() {
 
@@ -80,6 +81,7 @@ function Products() {
           })
         }
       </div>
+      <SimpleCart />
     </>
   )
 }

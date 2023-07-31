@@ -1,14 +1,19 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
-import { Card, CardActions, CardHeader, CardMedia, Button } from "@mui/material";
+import { Card, CardActions, CardHeader, CardMedia, Button, Typography } from "@mui/material";
 
 function ProductCard({product, handleAddToCart}){
 
   return(
     <Card key={`${product.name}_card`} className="product-card">
       <CardHeader 
-        title={product.name}
+        title={
+          <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+            {product.name}
+            {<p style={{fontSize: '0.75rem', color: 'grey'}}>{product.category.toUpperCase()}</p>}
+          </div>
+        }
         subheader={`$${product.price}`}
       />
       <CardMedia 

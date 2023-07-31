@@ -54,8 +54,24 @@ header {
   z-index: 100;
 }
 
+
 fieldset{
   border-color: white !important;
+}
+
+
+form{
+  fieldset{
+    border-color: $IndianRed !important;
+  }
+}
+
+.MuiFormControl-root{
+  margin: 0.25rem !important;
+}
+
+[data-shrink=true]{
+  color: red !important;
 }
 
 #banner{
