@@ -1,12 +1,13 @@
 import React from "react";
 import { Typography, AppBar, Toolbar, Button, OutlinedInput, InputAdornment, Badge } from "@mui/material";
 
-import { ShoppingCart, AccountCircle, Search, Store, LocalShipping, DirectionsCar, ShoppingBag, } from '@mui/icons-material';
+import { ShoppingCart, AccountCircle, Search, Store, DirectionsCar, } from '@mui/icons-material';
+// import {  LocalShipping, ShoppingBag, } from '@mui/icons-material';
 
 import { useDispatch, useSelector } from "react-redux";
 import cartSlice from "../../store/cart";
 import Categories from "../Categories";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 
 function Header(props) {
 

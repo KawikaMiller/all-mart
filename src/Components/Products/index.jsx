@@ -3,8 +3,6 @@ import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { useLocation } from "react-router";
 
-import { Container, Typography } from "@mui/material";
-
 import productsSlice from "../../store/products";
 import cartSlice from "../../store/cart";
 import { modifyServerSideStock } from "../../store/cart";

@@ -46,7 +46,7 @@ function Footer(props) {
       </div>
       <Divider variant='middle' style={{width: '90%', background: 'white'}}/>
 
-      <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', margin: '1rem', width: '85%', margin: '1rem'}}>
+      <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', margin: '1rem', width: '85%'}}>
         <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
         <TextField size="small" placeholder="Sign Up For Emails" sx={{color: 'white', background: 'white'}}/>
         <Button variant='contained' size="large">

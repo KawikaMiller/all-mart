@@ -4,13 +4,11 @@ import storefrontReducer from "./store";
 import Header from "./Components/Header";
 import Footer from "./Components/Footer";
 import Products from "./Components/Products";
-import Storefront from "./Components/Storefront";
 import ShoppingCart from "./Components/ShoppingCart";
 import { configureStore } from "@reduxjs/toolkit";
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import { Container } from "@mui/material";
 import ProductDetails from "./Components/ProductDetails";
 
 import './style/app.scss';

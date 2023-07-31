@@ -1,6 +1,6 @@
 import React from "react";
 import { useLocation } from "react-router";
-import { Card, CardActions, CardContent, CardHeader, Typography, CardMedia, Box, Button, Rating, ImageList, ImageListItem, Container, Divider, TextField, Accordion, AccordionSummary, AccordionDetails  } from "@mui/material";
+import { Card, CardActions, CardContent, CardHeader, Typography, Button, Rating, ImageList, ImageListItem, Container, Divider, TextField, Accordion, AccordionSummary, AccordionDetails  } from "@mui/material";
 import { addItemToCart } from "../../store/products";
 import { modifyServerSideStock } from "../../store/cart";
 import cartSlice from "../../store/cart";
