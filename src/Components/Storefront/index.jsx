@@ -6,11 +6,12 @@ import SimpleCart from '../SimpleCart';
 function Storefront () {
 
   return(
-    <>
-      <Categories/>
-      <Products />
+    <div id='storefront-wrapper'>
+      {/* <Categories/> */}
+      {/* <hr /> */}
+      <Products/>
       <SimpleCart />      
-    </>
+    </div>
   )
 
 }

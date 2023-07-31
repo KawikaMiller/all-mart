@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import { useLocation } from "react-router";
-import { Card, CardContent, CardHeader, Typography, Box, Button, TextField } from "@mui/material";
+import { Card, CardContent, CardHeader, Typography, Box, Button, TextField, Container } from "@mui/material";
 
 import { DatePicker } from "@mui/x-date-pickers";
 import { LocalizationProvider } from "@mui/x-date-pickers";
@@ -10,7 +10,18 @@ function ShoppingCart() {
 
   let { state } = useLocation();
 
+  const [CVV, setCVV] = useState(undefined);
+  const [zipCode, setZipCode] = useState(undefined);
+  const [cardNumber, setCardNumber] = useState(undefined);
+
+  const handleNumberChange = (event, limit, setFunc) => {
+    if(event.target.value.toString().length <= limit){
+      setFunc(event.target.value)
+    }
+  }
+
   return(
+    <Container sx={{marginTop: '4rem', marginBottom: '4rem'}}>
     <Card>
       <CardHeader title={'Order Summary'} />
       <CardContent>
@@ -18,8 +29,14 @@ function ShoppingCart() {
           <Box>
             <Card sx={{margin: '0.5rem'}}>
               <CardContent sx={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
-                <Typography variant='body1'>{item.name}</Typography>
-                <Typography variant='body1'>{`$${item.price}`}</Typography>                   
+                <div>
+                  <Typography variant='body1'>{`${item.name} x${item.quantity}`}</Typography>
+                  <Typography variant='subtitle1'>{`$${item.price}/ea`}</Typography>
+                </div>
+                <div>
+                  {/* <Typography variant='body1'>{`$${item.price}/ea`}</Typography> */}
+                  <Typography variant='h6'>{`$${item.quantity * item.price}`}</Typography>
+                </div>
               </CardContent>
             </Card>
           </Box>
@@ -27,12 +44,12 @@ function ShoppingCart() {
         <Box>
           <Card sx={{margin: '0.5rem'}}>
             <CardContent sx={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
-              <Typography variant="h6" >Total</Typography>
-              <Typography variant="h6">{`$${state.cart.items.reduce((acc, current) => {return acc + (current.price * current.quantity)}, 0)}`}</Typography>
+              <Typography variant="h4" >Total</Typography>
+              <Typography variant="h4">{`$${state.cart.items.reduce((acc, current) => {return acc + (current.price * current.quantity)}, 0)}`}</Typography>
             </CardContent>
           </Card>
         </Box>
-        <Box sx={{marginTop: '2rem'}}>
+        <Box sx={{marginTop: '2rem', padding: '1rem'}}>
           <Typography variant="h5" sx={{marginBottom: '1rem'}}>Customer Info</Typography>
             <form>
               <Box sx={{display: 'flex', justifyContent: 'space-around'}}>
@@ -41,46 +58,51 @@ function ShoppingCart() {
                   <TextField
                     id="outlined"
                     label='First Name'
-                  />
+                    />
                   <TextField
                     id="outlined"
                     label='Last Name'
-                  />                    
+                    />                    
                   </div>
                   <TextField
                     id="outlined"
                     label='Street Address'
-                  /> 
+                    /> 
                   <TextField
                     id="outlined"
                     label='City'
-                  />
+                    />
                   <TextField
                     id="outlined"
-                    
                     label='State'
-                  />
+                    />
                   <TextField
                     id="outlined"
-                    type="number"
+                    type="tel"
                     label='Zip'
-                  />                
+                    value={zipCode}
+                    onChange={(event) => handleNumberChange(event, 5, setZipCode)}
+                    />                
                 </Box>
                 <Box sx={{display: 'flex', flexDirection: 'column', justifyContent: 'space-between'}}>
                   <Box sx={{display: 'flex', flexDirection: 'column'}}>
                     <TextField
                       id="outlined"
-                      type="number"
+                      type="tel"
                       label='Card Number'
-                    />
+                      value={cardNumber}
+                      onChange={(event) => handleNumberChange(event, 16, setCardNumber)}
+                      />
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                       <DatePicker />                
                     </LocalizationProvider>
                     <TextField
                       id="outlined"
-                      type="number"
+                      type="tel"
                       label='CVV'
-                    />                     
+                      value={CVV}
+                      onChange={(event) => handleNumberChange(event, 4, setCVV)}
+                      />                     
                   </Box>
 
                   <Box sx={{alignSelf: 'center'}}>
@@ -91,7 +113,7 @@ function ShoppingCart() {
                         event.preventDefault();
                         alert('Thank you for your purchase!');
                       }}
-                    >
+                      >
                       Submit Order
                     </Button>               
                   </Box>   
@@ -102,6 +124,7 @@ function ShoppingCart() {
       </CardContent>
 
     </Card>
+    </Container>
 
   )
 
