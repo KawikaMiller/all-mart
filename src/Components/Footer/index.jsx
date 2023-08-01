@@ -7,7 +7,7 @@ function Footer(props) {
   return(
     <footer component='footer' id='storeFooter' >
       <div style={{display: 'flex', justifyContent: 'space-evenly', alignItems: 'center', width: '100%'}}>
-        <Box class='footer-addon'>
+        <Box className='footer-addon'>
           <Typography>About All-Mart</Typography>
           <Divider variant='middle' style={{width: '100%', background: 'white'}}/>
           <Typography variant='subtitle2'>About Us</Typography>
@@ -16,7 +16,7 @@ function Footer(props) {
           <Typography variant='subtitle2'>Affiliates</Typography>
           <Typography variant='subtitle2'>Sitemap</Typography>
         </Box>
-        <Box class='footer-addon'>
+        <Box className='footer-addon'>
           <Typography>My All-Mart</Typography>
           <Divider variant='middle' style={{width: '100%', background: 'white'}}/>
           <Typography variant='subtitle2'>My Account</Typography>
@@ -25,7 +25,7 @@ function Footer(props) {
           <Typography variant='subtitle2'>Wishlist</Typography>
           <Typography variant='subtitle2'>All-Star Membership</Typography>
         </Box>
-        <Box class='footer-addon'>
+        <Box className='footer-addon'>
           <Typography>Help & FAQs</Typography>
           <Divider variant='middle' style={{width: '100%', background: 'white'}}/>
           <Typography variant='subtitle2'>Online Ordering</Typography>
@@ -34,7 +34,7 @@ function Footer(props) {
           <Typography variant='subtitle2'>Returns & Exchanges</Typography>
           <Typography variant='subtitle2'>Customer Service</Typography>
         </Box>
-        <Box class='footer-addon'>
+        <Box className='footer-addon'>
           <Typography>Ways To Shop</Typography>
           <Divider variant='middle' style={{width: '100%', background: 'white'}}/>
           <Typography variant='subtitle2'>Just Arrived</Typography>

@@ -53,6 +53,75 @@ header {
   position: sticky !important;
   top: 0;
   z-index: 100;
+
+  #leftSideNav{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 60%;
+  
+    #navLinks{
+      display: flex;
+      width: 50%;
+      justify-content: space-evenly;
+    }
+  }
+  
+  #rightSideNav{
+    display: flex;
+    align-items: center;
+  }
+  
+  #bottomNav{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 1rem;
+
+    #bottomLeftNav{
+      display: flex; 
+      justify-content: space-between; 
+      align-items: center; 
+      width: 20%; 
+
+      #orderMethodContainer{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        #orderMethod{
+          width: 115px; 
+          color: white;
+        }
+      }
+
+      #storeLocation{
+        display: flex; 
+        justify-content: space-between;
+        align-items: center;
+      }
+    }
+  }
+}
+
+
+#orderMethod{
+  color: white;
+  align-items: center;
+  justify-content: center;
+
+  > *, svg {
+    color: white;
+    border: none;
+  }
+
+  :before{
+    border: none;
+  }
+
+  :after{
+    border: red;
+  }
 }
 
 

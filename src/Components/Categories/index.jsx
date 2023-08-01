@@ -13,7 +13,7 @@ function Categories (props) {
 
   // clears active category if the active category is clicked on, otherwise sets an non-active category to the active category
   const handleClick = (event) => {
-    if (event.target.innerText.toLowerCase() === categories.activeCategory.name) {
+    if (event.target.innerText.toLowerCase() === categories.activeCategory?.name) {
       dispatch(clearActiveCategory({}))
       let categorySelectors = document.getElementsByClassName('activeCategory');
       for (let i = 0; i < categorySelectors.length; i++ ){

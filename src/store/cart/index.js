@@ -40,12 +40,23 @@ export const modifyServerSideStock = (product, quantityChange) => async () => {
   })
 }
 
+const saveToLocalStorage = (stateItems, stateTotal) => {
+  const localCart = JSON.stringify({
+    items: stateItems,
+    total: stateTotal
+  })
+  localStorage.setItem('allMartCart', localCart)
+}
+
 const cartSlice = createSlice({
   name: 'cart',
   initialState: {
     items: [],
     total: 0,
-    showCart: false
+    showCart: false,
+    orderMethod: 'Pick-Up',
+    orderIcon: `<DirectionsCar />`,
+    location: '12345'
   },
   reducers: {
     addToCart(state, action){
@@ -58,6 +69,8 @@ const cartSlice = createSlice({
       }
       state.items = [...state.items, item];
       state.total = state.total + action.payload.price;
+
+      saveToLocalStorage(state.items, state.total);
     },
     removeFromCart(state, action){
       // filter array so that the remaining items are the ones that DO NOT MATCH the id of the item we want to remove
@@ -69,9 +82,10 @@ const cartSlice = createSlice({
       // set state
       state.items = remainingItems;
       state.total = newTotal;
+
+      saveToLocalStorage(state.items, state.total);
     },
     modifyItemQuantity(state, action){
-      console.log('MODIFY: ', action)
       let cartItems = [...state.items];
 
       let foundItem = cartItems.find(item => item.name === action.payload.product.name);
@@ -87,57 +101,21 @@ const cartSlice = createSlice({
       state.items = cartItems;
       state.total = modifiedTotal;
 
+      saveToLocalStorage(state.items, state.total);
     },
     toggleShowCart(state, action){
       state.showCart = !state.showCart
+    },
+    setCart(state, action){
+      console.log('set cart reducer hit')
+      state.items = action.payload.items;
+      state.total = action.payload.total;
+      state.showCart = false;
+    },
+    setOrderType(state, action){
+      state.orderMethod = action.payload;
     }
   }
 })
-
-// const cartReducer = (state = initialCartState, action) => {
-//   switch(action.type){
-//     case 'ADD_TO_CART':
-//       return {
-//         ...state,
-//         items: [...state.items, action.payload],
-//         total: state.total + action.payload.price
-//       };
-//     case 'REMOVE_FROM_CART':
-//       let remainingItems = state.items.filter(item => item._id !== action.payload);
-
-//       let newTotal = remainingItems.reduce((acc, current) => {return acc + (current.price * current.quantity)}, 0)
-
-//       return {
-//         ...state,
-//         items: remainingItems,
-//         total: newTotal,
-//       }
-//     case 'MODIFY_ITEM_QUANTITY':
-//       let cartItems = [...state.items];
-
-//       let foundItem = cartItems.find(item => item.name === action.payload.product.name);
-      
-//       foundItem.quantity += action.payload.quantityChange;
-
-//       if(foundItem.quantity === 0) {
-//         cartItems = state.items.filter(item => item.name !== action.payload.product.name)
-//       }
-
-//       let modifiedTotal = cartItems.reduce((acc, current) => {return acc + (current.price * current.quantity)}, 0)
-
-//       return {
-//         ...state,
-//         items: cartItems,
-//         total: modifiedTotal
-//       };
-//     case 'TOGGLE_CART':
-//       return {
-//         ...state,
-//         showCart: action.payload
-//       }
-//     default:
-//        return state;
-//   }
-// }
 
 export default cartSlice;
