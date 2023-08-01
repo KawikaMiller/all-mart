@@ -58,8 +58,8 @@ header {
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    width: 60%;
-  
+    width: 50%;
+
     #navLinks{
       display: flex;
       width: 50%;
@@ -69,7 +69,14 @@ header {
   
   #rightSideNav{
     display: flex;
+    justify-content: flex-end;
     align-items: center;
+    width: 50%;
+
+    > *{
+      margin: 0 0.5rem;
+    }
+
   }
   
   #bottomNav{
@@ -80,9 +87,13 @@ header {
 
     #bottomLeftNav{
       display: flex; 
-      justify-content: space-between; 
+      justify-content: flex-start; 
       align-items: center; 
       width: 20%; 
+
+      > * {
+        margin: 0 0.5rem;
+      }
 
       #orderMethodContainer{
         display: flex;
