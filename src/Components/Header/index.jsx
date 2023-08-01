@@ -25,10 +25,13 @@ function Header(props) {
   // loads cart from local storage when webpage loads
   useEffect(() => {
     const localCart = JSON.parse(localStorage.getItem('allMartCart'));
-    dispatch(setCart({
-      items: localCart.items,
-      total: localCart.total
-    }))
+
+    if(localCart){
+      dispatch(setCart({
+        items: localCart.items,
+        total: localCart.total
+      }))
+    }
   }, []) //eslint-disable-line
 
   return (
