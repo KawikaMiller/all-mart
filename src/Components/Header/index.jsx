@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Typography, AppBar, Toolbar, Button, OutlinedInput, InputAdornment, Badge, Select, MenuItem, InputLabel, FormControl } from "@mui/material";
+import { Typography, AppBar, Toolbar, Button, OutlinedInput, InputAdornment, Badge, Select, MenuItem, FormControl } from "@mui/material";
 
 import { ShoppingCart, AccountCircle, Search, LocationOn, DirectionsCar, LocalShipping, ShoppingBag, } from '@mui/icons-material';
 
@@ -22,10 +22,8 @@ function Header(props) {
     dispatch(setOrderType(event.target.value))
   }
 
-
   // loads cart from local storage when webpage loads
   useEffect(() => {
-    console.log('loading cart from local storage');
     const localCart = JSON.parse(localStorage.getItem('allMartCart'));
     dispatch(setCart({
       items: localCart.items,
@@ -107,7 +105,7 @@ function Header(props) {
                 value={cartState.orderMethod}
                 onChange={handleChange}
                 startAdornment={
-                  <InputAdornment>
+                  <InputAdornment position="start">
                     {
                       cartState.orderMethod === 'Pick-Up' ?
                         <DirectionsCar />

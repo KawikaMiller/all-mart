@@ -55,7 +55,6 @@ const cartSlice = createSlice({
     total: 0,
     showCart: false,
     orderMethod: 'Pick-Up',
-    orderIcon: `<DirectionsCar />`,
     location: '12345'
   },
   reducers: {
@@ -107,7 +106,6 @@ const cartSlice = createSlice({
       state.showCart = !state.showCart
     },
     setCart(state, action){
-      console.log('set cart reducer hit')
       state.items = action.payload.items;
       state.total = action.payload.total;
       state.showCart = false;

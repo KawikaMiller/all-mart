@@ -50,7 +50,7 @@ function SimpleCart(props) {
         <div>
         {cartState.items.map(item => {
           return (
-            <Container sx={{display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: '1rem'}}>
+            <Container key={`cartItem_${item.name}`} sx={{display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: '1rem'}}>
               <Typography variant='overline'>{item.name} x {item.quantity}</Typography>
 
               <Box sx={{display: 'flex', width: '100%', justifyContent: 'space-between'}}>

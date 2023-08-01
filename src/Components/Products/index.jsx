@@ -60,24 +60,19 @@ function Products() {
 
   return(
     <>
-      {/* <div id='productsHeader'>
-        <Typography variant="h5" >
-          {categoryState.activeCategory?.name ? categoryState.activeCategory?.name : 'All Products'}
-        </Typography>
-      </div> */}
       <div key='productsContainer' id='productsContainer'>
         {/* If a product category has been selected, only display products within that category */}
         {categoryState.activeCategory?.name ?
 
-          productState.allProducts.map(product => {
+          productState.allProducts.map((product, idx) => {
             if(product.category === categoryState.activeCategory.name){
-              return <ProductCard product={product} handleAddToCart={handleAddToCart}/>
+              return <ProductCard product={product} handleAddToCart={handleAddToCart} key={`productCard_${idx}`}/>
             } else return null;
           })   
         : 
           // If no product category is selected, display all products
-          productState.allProducts.map(product => {
-            return <ProductCard product={product} handleAddToCart={handleAddToCart} />
+          productState.allProducts.map((product, idx) => {
+            return <ProductCard product={product} handleAddToCart={handleAddToCart} key={`productCard_${idx}`}/>
           })
         }
       </div>
