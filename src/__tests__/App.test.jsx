@@ -1,7 +1,7 @@
 // import storefrontReducer from "../store";
 // import { createStore } from "redux";
 // import Products from "../Components/Products";
-// import Categories from "../Components/Categories";
+// import Departments from "../Components/Departments";
 // import { render, screen, fireEvent } from "@testing-library/react";
 // import { Provider } from "react-redux";
 // import userEvent from "@testing-library/user-event";

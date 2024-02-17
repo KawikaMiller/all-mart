@@ -16,8 +16,8 @@ function ProductDetails(props) {
 
   const handleAddToCart = (product) => {
     // if product IS NOT in cart, add it to cart
-    if (!cartState.items.find(item => item._id === product._id)) {
-      dispatch(addItemToCart(product._id))
+    if (!cartState.items.find(item => item.id === product.id)) {
+      dispatch(addItemToCart(product.id))
       .then(dispatch(addToCart(product)));  
     } 
     // otherwise, the product IS in the cart and we need to update the quantity of the item
@@ -77,7 +77,7 @@ function ProductDetails(props) {
             {state.product.name}
             <Rating sx={{padding: '1rem'}} readOnly value={3}/>
             </div>} 
-            subheader={state.product.category.toUpperCase()}
+            subheader={state.product.department.toUpperCase()}
             />
             <Divider variant="middle" />
             <CardContent>
@@ -87,11 +87,11 @@ function ProductDetails(props) {
                 </Typography>
               </div>
               <Typography variant="h6" sx={{color: 'grey'}}>
-              {`In Stock: ${state.product.inStock}`}
+              {`In Stock: ${state.product.stock}`}
               </Typography>
             </CardContent>
             <CardActions sx={{justifyContent: 'center'}}>
-              {state.product.inStock > 0 ?
+              {state.product.stock > 0 ?
                 <Button variant="contained" onClick={() => handleAddToCart(state.product)} sx={{width: '90%'}}>
                   {`Add To Cart`}
                 </Button>                    

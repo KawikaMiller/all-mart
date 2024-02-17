@@ -55,7 +55,7 @@ describe('Testing SimpleCart component...', () => {
     act(() => store.dispatch({
       type: 'ADD_TO_CART',
       payload: {
-        category: 'category',
+        department: 'department',
         name: 'name',
         description: 'description',
         price: 9.99,

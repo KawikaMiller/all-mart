@@ -8,7 +8,7 @@ import thunk from 'redux-thunk';
 
 describe('Testing Products component...', () => {
 
-  test('All products should be visible when no active category set', () => {
+  test('All products should be visible when no active department set', () => {
 
     const store = createStore(storefrontReducer, applyMiddleware(thunk));
 
@@ -24,7 +24,7 @@ describe('Testing Products component...', () => {
     expect(screen.getByText('Collar')).toBeVisible;
   })
 
-  test('Can only see food products when food category is active', () => {
+  test('Can only see food products when food department is active', () => {
 
     const store = createStore(storefrontReducer, applyMiddleware(thunk));
 
@@ -45,7 +45,7 @@ describe('Testing Products component...', () => {
     expect(screen.getByText('Collar')).not.toBeVisible;
   })
 
-  test('Can only see accessories products when accessories category is active', () => {
+  test('Can only see accessories products when accessories department is active', () => {
 
     const store = createStore(storefrontReducer, applyMiddleware(thunk));
 

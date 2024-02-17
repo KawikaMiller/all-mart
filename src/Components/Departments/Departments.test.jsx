@@ -1,4 +1,4 @@
-import Categories from './index';
+import Departments from './index';
 import { Provider } from "react-redux";
 import { applyMiddleware, createStore } from "redux";
 import storefrontReducer from '../../store';
@@ -6,15 +6,15 @@ import { render, screen, fireEvent, act } from '@testing-library/react';
 import thunk from 'redux-thunk';
 // import userEvent from "@testing-library/user-event";
 
-describe('Testing Categories component...', () => {
+describe('Testing Departments component...', () => {
 
-  test('Categories component should be visible', () => {
+  test('Departments component should be visible', () => {
     const store = createStore(storefrontReducer, applyMiddleware(thunk));
-    let categoryState = store.getState().categories;
+    let departmentState = store.getState().departments;
 
     render(
       <Provider store={store}>
-        <Categories categories={categoryState.categories}/>
+        <Departments departments={departmentState.departments}/>
       </Provider>
     )
 
@@ -22,13 +22,13 @@ describe('Testing Categories component...', () => {
     expect(screen.getByTestId('paper_accessories')).toBeVisible();
   })
 
-  test('Simulating changing active category', () => {
+  test('Simulating changing active department', () => {
     const store = createStore(storefrontReducer, applyMiddleware(thunk));
-    let categoryState = store.getState().categories;
+    let departmentState = store.getState().departments;
 
     render(
       <Provider store={store}>
-        <Categories categories={categoryState.categories}/>
+        <Departments departments={departmentState.departments}/>
       </Provider>
     )
     
@@ -37,14 +37,14 @@ describe('Testing Categories component...', () => {
       payload: 'food'
     }))
 
-    expect(store.getState().categories.activeCategory.name).toBe('food')
+    expect(store.getState().departments.activeDepartment.name).toBe('food')
 
     act(() => store.dispatch({
       type:'SET_ACTIVECATEGORY',
       payload: ''
     }))
 
-    expect(store.getState().categories.activeCategory?.name).toBeFalsy();
+    expect(store.getState().departments.activeDepartment?.name).toBeFalsy();
   })
 
 })

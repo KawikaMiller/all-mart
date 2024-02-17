@@ -200,11 +200,11 @@ footer {
   
 }
 
-#categories-header{
+#departments-header{
   text-align: center;
 }
 
-#categoryContainer {
+#departmentContainer {
   display: flex;
   justify-content: flex-end;
   flex-wrap: wrap;
@@ -225,26 +225,26 @@ footer {
     }
   }
   
-  .activeCategory{
+  .activeDepartment{
     background-color: white !important;
     color: $IndianRed !important;
   }
 }
 
 
-.categorySelector, .categoryPageSelector {
+.departmentSelector, .departmentPageSelector {
   cursor: pointer;
 }
 
-#categoriesPage{
+#departmentsPage{
   margin: 1rem 0;
 }
 
-#categoriesPageHeader{
+#departmentsPageHeader{
   text-align: center;
 }
 
-.categoryPageSelector{
+.departmentPageSelector{
   display: flex;
   align-items: center;
   height: 8rem;

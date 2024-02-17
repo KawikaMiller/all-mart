@@ -1,5 +1,5 @@
 import React from "react";
-import Categories from "../Categories";
+import Departments from "../Departments";
 import Products from '../Products';
 import SimpleCart from '../SimpleCart';
 
@@ -7,7 +7,7 @@ function Storefront () {
 
   return(
     <div id='storefront-wrapper'>
-      {/* <Categories/> */}
+      {/* <Departments/> */}
       {/* <hr /> */}
       <Products/>
       <SimpleCart />      

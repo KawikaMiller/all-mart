@@ -8,27 +8,27 @@ import cartSlice from "../../store/cart";
 import { modifyServerSideStock } from "../../store/cart";
 import { addItemToCart, fetchProductsFromServer } from "../../store/products";
 
-import categoriesSlice from "../../store/categories";
+import departmentsSlice from "../../store/departments";
 import ProductCard from "../ProductCard";
 import SimpleCart from "../SimpleCart";
 
 function Products() {
 
   const productState = useSelector(storefrontState => storefrontState.products);
-  const categoryState = useSelector(storefrontState => storefrontState.categories);
+  const departmentState = useSelector(storefrontState => storefrontState.departments);
   const cartState = useSelector(storefrontState => storefrontState.cart);
   const linkState = useLocation();
   const dispatch = useDispatch();
 
   let {setAllProducts} = productsSlice.actions;
-  let {setActiveCategory} = categoriesSlice.actions
+  let {setActiveDepartment} = departmentsSlice.actions
   let {addToCart, modifyItemQuantity} = cartSlice.actions;
 
 
   const handleAddToCart = (product) => {
     // if product IS NOT in cart, add it to cart
-    if (!cartState.items.find(item => item._id === product._id)) {
-      dispatch(addItemToCart(product._id))
+    if (!cartState.items.find(item => item.id === product.id)) {
+      dispatch(addItemToCart(product.id))
       .then(dispatch(addToCart(product)));  
     } 
     // otherwise, the product IS in the cart and we need to update the quantity of the item
@@ -45,32 +45,32 @@ function Products() {
   // fetches product data when component mounts (when page loads)
   useEffect(() => {
     dispatch(fetchProductsFromServer())
-    .then(response => dispatch(setAllProducts(response.results)));
+    .then(response => dispatch(setAllProducts(response)));
 
-    if(linkState.state?.category){
-      dispatch(setActiveCategory(linkState.state.category.name))
+    if(linkState.state?.department){
+      dispatch(setActiveDepartment(linkState.state.department.name))
     }
   }, []) // eslint-disable-line 
 
   // fetches product data from the server any time our cart is modified so that the state stays in sync with whats on the server
   useEffect(() => {
     dispatch(fetchProductsFromServer())
-    .then(results => dispatch(setAllProducts(results.results)));
+    .then(results => dispatch(setAllProducts(results)));
   }, [cartState]) // eslint-disable-line
 
   return(
     <>
       <div key='productsContainer' id='productsContainer'>
-        {/* If a product category has been selected, only display products within that category */}
-        {categoryState.activeCategory?.name ?
+        {/* If a product department has been selected, only display products within that department */}
+        {departmentState.activeDepartment?.name ?
 
           productState.allProducts.map((product, idx) => {
-            if(product.category === categoryState.activeCategory.name){
+            if(product.department === departmentState.activeDepartment.name){
               return <ProductCard product={product} handleAddToCart={handleAddToCart} key={`productCard_${idx}`}/>
             } else return null;
           })   
         : 
-          // If no product category is selected, display all products
+          // If no product department is selected, display all products
           productState.allProducts.map((product, idx) => {
             return <ProductCard product={product} handleAddToCart={handleAddToCart} key={`productCard_${idx}`}/>
           })

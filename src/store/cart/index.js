@@ -2,12 +2,12 @@ import { createSlice } from "@reduxjs/toolkit";
 
 export const reStockServer = (product) => async () => {
   // find product on server side
-  let response = await fetch(`https://api-js401.herokuapp.com/api/v1/products/${product._id}`);
+  let response = await fetch(`http://localhost:3001/api/v1/products/${product.id}`);
   let foundProduct = await response.json()
 
   // update stock on server side
-  let body = {inStock: foundProduct.inStock + product.quantity};
-  await fetch(`https://api-js401.herokuapp.com/api/v1/products/${product._id}`, {
+  let body = {stock: foundProduct.stock + product.quantity};
+  await fetch(`http://localhost:3001/api/v1/products/${product.id}`, {
     method: 'PUT',
     headers: {
       "Content-Type": "application/json",
@@ -19,18 +19,21 @@ export const reStockServer = (product) => async () => {
 
 export const modifyServerSideStock = (product, quantityChange) => async () => {
   // find cart item id in server products
-  let response = await fetch(`https://api-js401.herokuapp.com/api/v1/products/${product._id}`);
+  let response = await fetch(`http://localhost:3001/api/v1/products/${product.id}`);
+  console.log(response)
   let foundProduct = await response.json()
 
+  console.log(foundProduct)
+
   // if we are trying to increment an item's quantity in our cart AND the product is out of stock, then we throw an error
-  if (quantityChange > 0 && foundProduct.inStock <= 0) {
+  if (quantityChange > 0 && foundProduct.stock <= 0) {
     throw new Error('Unable to add more of this item to your cart. Item may be out of stock.')
   }
 
   // update server side stock
-  let body = {inStock: foundProduct.inStock - quantityChange};
+  let body = {stock: foundProduct.stock - quantityChange};
 
-  await fetch(`https://api-js401.herokuapp.com/api/v1/products/${product._id}`, {
+  await fetch(`http://localhost:3001/api/v1/products/${product.id}`, {
     method: 'PUT',
     headers: {
       "Content-Type": "application/json",
@@ -60,8 +63,8 @@ const cartSlice = createSlice({
   reducers: {
     addToCart(state, action){
       let item = {
-        _id: action.payload._id,
-        category: action.payload.category,
+        id: action.payload.id,
+        department: action.payload.department,
         name: action.payload.name,
         price: action.payload.price,
         quantity: 1
@@ -73,7 +76,7 @@ const cartSlice = createSlice({
     },
     removeFromCart(state, action){
       // filter array so that the remaining items are the ones that DO NOT MATCH the id of the item we want to remove
-      let remainingItems = state.items.filter(item => item._id !== action.payload._id);
+      let remainingItems = state.items.filter(item => item.id !== action.payload.id);
 
       // recalculate the total
       let newTotal = remainingItems.reduce((acc, current) => {return acc + (current.price * current.quantity)}, 0);
@@ -86,8 +89,9 @@ const cartSlice = createSlice({
     },
     modifyItemQuantity(state, action){
       let cartItems = [...state.items];
-
+      console.log('cartItems => ', cartItems)
       let foundItem = cartItems.find(item => item.name === action.payload.product.name);
+      console.log('foundItem => ', foundItem)
       
       foundItem.quantity += action.payload.quantityChange;
 

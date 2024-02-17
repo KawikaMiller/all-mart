@@ -11,7 +11,7 @@ function ProductCard({product, handleAddToCart}){
         title={
           <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
             {product.name}
-            {<p style={{fontSize: '0.75rem', color: 'grey'}}>{product.category.toUpperCase()}</p>}
+            {<p style={{fontSize: '0.75rem', color: 'grey'}}>{product.department}</p>}
           </div>
         }
         subheader={`$${product.price}`}
@@ -21,7 +21,7 @@ function ProductCard({product, handleAddToCart}){
         image='https://placehold.co/200.png'
       />
       <CardActions className="product-buttons">
-        {product.inStock > 0 ?
+        {product.stock > 0 ?
           <Button variant="contained" onClick={() => handleAddToCart(product)} className='product-card-button-add'>
             <AddShoppingCartIcon />
             Add To Cart
@@ -31,7 +31,7 @@ function ProductCard({product, handleAddToCart}){
         }
         <Button variant='contained' className='product-card-button-details'>
           <Link 
-            to={`/product/${product._id}`} 
+            to={`/products/${product.id}`} 
             style={{textDecoration: 'none'}}
             state={{product: product}}
           >

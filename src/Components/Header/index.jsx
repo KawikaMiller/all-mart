@@ -6,7 +6,7 @@ import { ShoppingCart, AccountCircle, Search, LocationOn, DirectionsCar, LocalSh
 
 import { useDispatch, useSelector } from "react-redux";
 import cartSlice from "../../store/cart";
-import Categories from "../Categories";
+import Departments from "../Departments";
 
 function Header(props) {
 
@@ -50,7 +50,7 @@ function Header(props) {
           <div id='navLinks'>
             <Typography>
               <Link
-                to="../categories"
+                to="../departments"
                 style={{ textDecoration: 'none', color: 'white' }}
               >
                 Products
@@ -138,7 +138,7 @@ function Header(props) {
 
         </div>
 
-        <Categories />
+        <Departments />
 
       </div>
     </AppBar>
